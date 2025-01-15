@@ -13,6 +13,7 @@ function App() {
       </header>
       <WayToTeach title={ways[0].title} description={ways[0].description}/>
       <WayToTeach title={ways[1].title} description={ways[1].description}/>
+      <WayToTeach title={ways[1].title} description={ways[1].description}/>
       <ul>
         {listWays}
       </ul>

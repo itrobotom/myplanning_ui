@@ -1,10 +1,32 @@
 import React, { useEffect, useState } from 'react';
 
-import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent } from "@mui/material";
-import StarIcon from '@mui/icons-material/Star';
+import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import StarIcon from '@mui/icons-material/Star';
 import RepeatIcon from '@mui/icons-material/Repeat';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+//import { StarIcon, RepeatIcon, DeleteOutlineIcon, NotificationsNoneIcon, EditIcon, SaveIcon, Error, Warning, CheckCircle } from '@mui/icons-material';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'; //высокий приоритет
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'; //средний приоритет
+
+
+//через закрашеное солнышко частично и полностью важность
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
+import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
+import BrightnessMediumIcon from '@mui/icons-material/BrightnessMedium';
+
+//цифрами 1, 2,3 приоритет
+import Filter1Icon from '@mui/icons-material/Filter1';
+import Filter2Icon from '@mui/icons-material/Filter2';
+import Filter3Icon from '@mui/icons-material/Filter3';
+
+
+
+
 
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
@@ -45,6 +67,39 @@ function CardTask({props}) {
                         <Typography>Установить программное обеспечение на ПК К20-3. Настроить программы, подключить проектор к пк и веб камеру</Typography>
                     </Box>
                     {/* иконки и настройки ниже самой задачи */}
+                    <Box sx={{display: "flex", mr:"10px"}}>
+                        <IconButton>
+                            <DeleteOutlineIcon></DeleteOutlineIcon>
+                        </IconButton>
+                        <IconButton>
+                            <NotificationsNoneIcon></NotificationsNoneIcon>
+                        </IconButton>
+                        <IconButton>
+                        <Box
+                                sx={{
+                                    position: 'relative',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                {/* Сам значок Repeat */}
+                                <RepeatIcon />
+
+                                {/* Линия перечеркивания */}
+                                <Box
+                                    sx={{
+                                    position: 'absolute',
+                                    width: '120%',
+                                    height: '2px',
+                                    backgroundColor: 'currentColor',
+                                    top: '50%',
+                                    transform: 'translateY(-50%) rotate(-45deg)',
+                                    }}
+                                />
+                            </Box>
+                        </IconButton>
+                    </Box>
                 </Box>
                 
                 <Box sx={{border: "1px solid black"}}>
@@ -75,7 +130,7 @@ function CardTask({props}) {
                                 />
                             </Box>
                         </IconButton>
-                        
+                                    
                         <IconButton>
                             <StarIcon></StarIcon>
                         </IconButton>
@@ -83,8 +138,11 @@ function CardTask({props}) {
                     </Box>
                     {/* иконка редактирования, которая появляется внизу после разворачивания карточки задачи */}
                     <IconButton>
-                        <StarIcon></StarIcon>
+                        <EditIcon></EditIcon>
                     </IconButton>
+                    {/* <IconButton>
+                        <SaveIcon></SaveIcon>
+                    </IconButton> */}
                 </Box>
             </Box>
 

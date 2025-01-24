@@ -28,7 +28,7 @@ import Filter3Icon from '@mui/icons-material/Filter3';
 
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
-    const heightCard = 400;
+    const heightCard = 200;
     //вытащим данные из стора по isCheckBoxTaskStatus, таким и будет далее стейт
     //а пока сделаем его просто по дефолту false
     const isLearn = true; //режим обучения (включается возможность кликать по всем иконкам, получая подсказки)
@@ -46,13 +46,13 @@ function CardTask({props}) {
         console.log(statusTask);
     }
     return (
-        <Card sx={{width: 1200, height: heightCard, p: '20px' }}>
+        <Card className="main-container-task" sx={{ height: heightCard }}>
             {/* <CardContent>
                 <Typography variant="h5">Заголовок</Typography>
                 <Typography>Контент карточки</Typography>
             </CardContent> */}
-            <Box sx={{padding: 2, backgroundColor: 'lightblue', display: 'flex'}}>
-                <Box sx={{border: "1px solid black"}}>
+            <Box className="task-block">
+                <Box className="left-task-block" sx={{border: "1px solid black"}}>
                     <FormControlLabel
                         control={<Checkbox 
                             defaultNohecked 
@@ -62,8 +62,9 @@ function CardTask({props}) {
                         onChange={handleTaskStatus}
                     />
                 </Box>
-                <Box>
-                    <Box sx={{border: "1px solid black", width:"200px", display: 'flex', alignItems: "center", pl:"10px", pr:"10px"}}>
+                <Box className="middle-task-block">
+                    <Box className="middle-task-block-text">
+                        {/* <Typography color="#000000" variant="h6">Установить программное обеспечение на ПК К20-3. Настроить программы, подключить проектор к пк и веб камеру</Typography> */}
                         <Typography>Установить программное обеспечение на ПК К20-3. Настроить программы, подключить проектор к пк и веб камеру</Typography>
                     </Box>
                     {/* иконки и настройки ниже самой задачи */}
@@ -89,15 +90,13 @@ function CardTask({props}) {
                                     <RepeatIcon />
                                     {/* Линия перечеркивания */}
                                     <Box className="crossing-out"/>
-        
                                 </Box>
                             </IconButton>
                         }
-                        
                     </Box>
                 </Box>
                 
-                <Box sx={{border: "1px solid black"}}>
+                <Box className="right-task-block" sx={{border: "1px solid black"}}>
                     {/* две иконки рядом (повтор и статус) */}
                     <Box sx={{display: "flex", justifyContent: "space-between"}}>
                         <IconButton>

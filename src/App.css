@@ -1,0 +1,21 @@
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+      font-size: 14px; /* Меньший шрифт для мобильных */
+    }
+  
+    .container {
+      padding: 10px;
+    }
+}
+
+/* Стили для более крупных устройств */
+@media (min-width: 769px) {
+    body {
+        font-size: 18px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+}

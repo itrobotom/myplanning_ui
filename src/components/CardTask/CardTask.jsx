@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import "./CardTask.css"
 import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -26,13 +26,13 @@ import Filter3Icon from '@mui/icons-material/Filter3';
 
 
 
-
-
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
     const heightCard = 400;
     //вытащим данные из стора по isCheckBoxTaskStatus, таким и будет далее стейт
     //а пока сделаем его просто по дефолту false
+    const isLearn = true; //режим обучения (включается возможность кликать по всем иконкам, получая подсказки)
+    const isFullTask = false; //все задачи в ленте свернуты, чтобы развернуть и увидеть все настройки и все содержимое, возомжность редактироват, надо нажать на саму задачу
     const isCheckBoxTaskStatusDefault = false; 
     const [statusTask, setStatusTask] = useState(isCheckBoxTaskStatusDefault);
     const handleTaskStatus = () => { //при клике меняем статус
@@ -74,31 +74,26 @@ function CardTask({props}) {
                         <IconButton>
                             <NotificationsNoneIcon></NotificationsNoneIcon>
                         </IconButton>
-                        <IconButton>
-                        <Box
-                                sx={{
-                                    position: 'relative',
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                {/* Сам значок Repeat */}
-                                <RepeatIcon />
-
-                                {/* Линия перечеркивания */}
+                        
+                        {isFullTask & 
+                            <IconButton>
                                 <Box
                                     sx={{
-                                    position: 'absolute',
-                                    width: '120%',
-                                    height: '2px',
-                                    backgroundColor: 'currentColor',
-                                    top: '50%',
-                                    transform: 'translateY(-50%) rotate(-45deg)',
+                                        position: 'relative',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
                                     }}
-                                />
-                            </Box>
-                        </IconButton>
+                                >
+                                    /* Сам значок Repeat */
+                                    <RepeatIcon />
+                                    /* Линия перечеркивания */
+                                    <Box className="crossing-out"/>
+        
+                                </Box>
+                            </IconButton>
+                        }
+                        
                     </Box>
                 </Box>
                 
@@ -118,22 +113,20 @@ function CardTask({props}) {
                                 <RepeatIcon />
 
                                 {/* Линия перечеркивания */}
-                                <Box
-                                    sx={{
-                                    position: 'absolute',
-                                    width: '120%',
-                                    height: '2px',
-                                    backgroundColor: 'currentColor',
-                                    top: '50%',
-                                    transform: 'translateY(-50%) rotate(-45deg)',
-                                    }}
-                                />
+                                <Box className="crossing-out"/>
                             </Box>
                         </IconButton>
-                                    
-                        <IconButton>
-                            <StarIcon></StarIcon>
-                        </IconButton>
+
+         
+                        {isLearn ? (
+                            <IconButton className={isLearn ? 'rotatePause' : 'noAnimation'}>
+                                <Filter1Icon></Filter1Icon>
+                            </IconButton>
+                        ) : (
+                            <Box className='icon-no-button'>
+                                <Filter1Icon />
+                            </Box>
+                        )}
 
                     </Box>
                     {/* иконка редактирования, которая появляется внизу после разворачивания карточки задачи */}

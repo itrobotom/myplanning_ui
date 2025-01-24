@@ -1,0 +1,41 @@
+.crossing-out {
+    position: absolute;
+    width: 120%;
+    height: 2px;
+    background-color: currentColor;
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+.icon-no-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+@keyframes rotatePause {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(10deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+}
+
+.rotatePause {
+animation: rotatePause 1.5s infinite ease-in-out;
+}
+
+.noAnimation {
+animation: none;
+}

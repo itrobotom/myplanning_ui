@@ -24,22 +24,6 @@ import Filter1Icon from '@mui/icons-material/Filter1';
 import Filter2Icon from '@mui/icons-material/Filter2';
 import Filter3Icon from '@mui/icons-material/Filter3';
 
-//пометка для групповой задачи
-import GroupsIcon from '@mui/icons-material/Groups';
-
-//пометка, кто автор задачи
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import PersonIcon from '@mui/icons-material/Person';
-
-// ракета 
-import RocketIcon from '@mui/icons-material/Rocket';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-
-//смайлы лица (есть все)
-import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-
-//палец вверх
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 
 function CardTask({props}) {
@@ -91,7 +75,7 @@ function CardTask({props}) {
                             <NotificationsNoneIcon></NotificationsNoneIcon>
                         </IconButton>
                         
-                        {isFullTask & 
+                        {isFullTask && 
                             <IconButton>
                                 <Box
                                     sx={{
@@ -101,9 +85,9 @@ function CardTask({props}) {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    /* Сам значок Repeat */
+                                    {/* Сам значок Repeat */}
                                     <RepeatIcon />
-                                    /* Линия перечеркивания */
+                                    {/* Линия перечеркивания */}
                                     <Box className="crossing-out"/>
         
                                 </Box>

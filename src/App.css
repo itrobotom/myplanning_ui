@@ -1,28 +1,31 @@
 /* Стили для мобильных устройств */
 @media (max-width: 768px) {
-    body {
-      font-size: 14px; /* Меньший шрифт для мобильных */
+    html {
+        font-size: 25px; /* Меньший шрифт для мобильных */
     }
   
     .container {
-      padding: 10px;
+       padding: 10px;
     }
 }
 
 /* Стили для более крупных устройств */
 @media (min-width: 769px) {
-    body {
-        font-size: 18px;
+    html {
+        font-size: 38px;
     }
 
     .container {
         padding: 20px;
     }
 }
-
+body {
+    display: flex;
+    justify-content: center;
+}
 /* работа с относительными единицами вместо пикселей для адаптивности */
 html {
-  font-size: 16px; /* Базовый размер шрифта */
+  /* font-size: 26px; Базовый размер шрифта */
 }
 
 h1 {

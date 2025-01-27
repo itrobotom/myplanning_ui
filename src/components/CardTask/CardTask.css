@@ -5,15 +5,16 @@
   padding: 0px;
   /* border: 1px solid black; */
   max-height: 1000px;
-  min-height: 200px;
+  max-width: 1200px;
 }
 
 .task-block {
+  /* min-height: 300px; */
   padding: 2px;
   background-color: lightblue;
   display: flex;
   /* align-items: center; */
-  width: 100%; /* Адаптивная ширина */
+  /* width: 100%; Адаптивная ширина */
   max-width: 1000px;
   min-width: 420px;
   gap: 10px; /* Расстояние между блоками */
@@ -39,34 +40,34 @@
 }
 
 .middle-task-block-text {
-  display: -webkit-box; /* Включаем поддержку многоточий */
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* Обрезка после двух строк */
-  overflow: hidden; /* Скрываем лишний текст */
-  text-overflow: ellipsis; /* Добавляем многоточие */
-  line-height: 1.5; /* Делаем текст чуть более читаемым */
-  max-height: calc(1.5em * 2); /* Задаем высоту для двух строк */
-  padding: 0 10px; /* Добавляем отступы внутри */
-  word-wrap: break-word; /* Перенос слов при необходимости */
+    display: -webkit-box; /* Поддержка многоточий */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Показываем только две строки */
+    overflow: hidden; /* Скрываем лишний текст */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+    line-height: 1.8em; /* Высота строки зависит от размера шрифта */
+    max-height: calc(1.8em * 2); /* Высота для двух строк */
+    padding: 0 10px; /* Внутренние отступы */
+    word-wrap: break-word; /* Перенос слов при необходимости */
 }
 
 
 
 @media (max-width: 768px) {
   .main-container-task {
-    padding: 5px;
+    /* padding: 5px; */
   }
   .task-block {
-    width: 720px;
+    max-width: 720px;
   }
 }
 
 @media (min-width: 769px) {
   .main-container-task {
-    padding: 20px;
+    /* padding: 20px; */
   }
   .task-block {
-    width: 1200px; /* Ограничиваем ширину контейнера задачи */
+    max-width: 1200px; /*  Ограничиваем ширину контейнера задачи */
   }
 }
 

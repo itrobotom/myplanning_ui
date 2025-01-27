@@ -169,5 +169,26 @@ export const tasks = [
         "channels": ["telegram"],
         "schedule": ["1_day_before"]
       }
+    },
+    {
+      "user_id": "66614df5966ed02f7a77de9c",
+      "task_type": "personal",
+      "period": "one_time",
+      "repeat": null,
+      "planned_end_date": "2025-01-23T00:00:00.000Z",
+      "actual_end_date": "2025-01-23T00:00:00.000Z",
+      "next_planned_date": null,
+      "execution_days": 1,
+      "content": "Read a book chapter",
+      "category": "personal",
+      "planned_time": 30,
+      "actual_time": 25,
+      "priority": "low",
+      "status": "completed",
+      "completed_in_time": true,
+      "notifications": {
+        "channels": ["telegram"],
+        "schedule": ["1_day_before"]
+      }
     }
   ]

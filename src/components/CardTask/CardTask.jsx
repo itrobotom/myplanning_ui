@@ -37,13 +37,7 @@ function CardTask({props}) {
     const [statusTask, setStatusTask] = useState(isCheckBoxTaskStatusDefault);
     const handleTaskStatus = () => { //при клике меняем статус
         setStatusTask(!statusTask);
-        // if(statusTask){
-        //     setStatusTask(false);
-        //     //также запишем это в стор
-        // } else {
-        //     setStatusTask(true); 
-        // }
-        console.log(statusTask);
+        console.log(`Статус таски: ${statusTask}`);
     }
     return (
         <Card className="main-container-task" sx={{ height: heightCard }}>

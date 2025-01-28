@@ -40,15 +40,22 @@
 }
 
 .middle-task-block-text {
-    display: -webkit-box; /* Поддержка многоточий */
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* Показываем только две строки */
-    overflow: hidden; /* Скрываем лишний текст */
-    text-overflow: ellipsis; /* Добавляем многоточие */
-    line-height: 1.8em; /* Высота строки зависит от размера шрифта */
-    max-height: calc(1.8em * 2); /* Высота для двух строк */
-    padding: 0 10px; /* Внутренние отступы */
-    word-wrap: break-word; /* Перенос слов при необходимости */
+  display: -webkit-box; /* Поддержка многоточий */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Показываем только две строки */
+  overflow: hidden; /* Скрываем лишний текст */
+  text-overflow: ellipsis; /* Добавляем многоточие */
+  line-height: 1.8em; /* Высота строки зависит от размера шрифта */
+  max-height: calc(1.8em * 2); /* Высота для двух строк */
+  padding: 0 10px; /* Внутренние отступы */
+  word-wrap: break-word; /* Перенос слов при необходимости */
+  cursor: pointer;
+}
+
+.middle-task-block-text.expanded-text {
+  -webkit-line-clamp: unset; /* Убираем ограничение строк */
+  overflow: visible; /* Показываем весь текст */
+  max-height: none; /* Убираем высоту */
 }
 
 

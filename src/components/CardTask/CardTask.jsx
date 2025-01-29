@@ -64,7 +64,7 @@ function CardTask({props}) {
                 <Typography>Контент карточки</Typography>
             </CardContent> */}
             <Box className="task-block">
-                <Box className="left-task-block" sx={{border: "1px solid black"}}>
+                <Box className="left-task-block">
                     <FormControlLabel
                         control={<Checkbox 
                             defaultNohecked 
@@ -72,6 +72,7 @@ function CardTask({props}) {
                         />} 
                         checked={statusTask ? true : false}
                         onChange={handleTaskStatus}
+                        sx={{ mx: 'auto' }}
                     />
                 </Box>
                 <Box className="middle-task-block">
@@ -93,9 +94,22 @@ function CardTask({props}) {
                                     <IconButton>
                                         <DeleteOutlineIcon></DeleteOutlineIcon>
                                     </IconButton>
+                                    
                                     <IconButton>
                                         <NotificationsNoneIcon></NotificationsNoneIcon>
                                     </IconButton>
+                                    {/* <Popover
+                                        id={id}
+                                        open={open}
+                                        anchorEl={anchorEl}
+                                        onClose={handleClose}
+                                        anchorOrigin={{
+                                            vertical: 'bottom',
+                                            horizontal: 'left',
+                                        }}
+                                        >
+                                        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+                                    </Popover> */}
                                 </Box>
 
                                 <IconButton>

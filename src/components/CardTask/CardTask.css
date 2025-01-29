@@ -28,6 +28,13 @@
   flex-basis: 50px; /* фиксированная ширина для блоков */
 }
 
+.left-task-block {
+  border: 1px solid black;
+  /* display: flex; */
+
+  /* justify-content: center; */
+}
+
 
 .middle-task-block {
   /* display: flex; */

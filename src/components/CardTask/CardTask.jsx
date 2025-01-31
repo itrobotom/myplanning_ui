@@ -140,7 +140,8 @@ function CardTask({props}) {
                     <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%"}}>
                         <Box>
                             {isLearnMode ? (
-                                <IconButton className={isLearnMode ? 'rotatePause' : 'noAnimation'}>
+                                // разные версии анимации иконки rotatePause, heartbeat, gentleSwing, softBlink, tilt
+                                <IconButton className={isLearnMode ? 'gentleSwing' : 'noAnimation'}>
                                     <Filter1Icon></Filter1Icon>
                                 </IconButton>
                             ) : (

@@ -1,0 +1,75 @@
+.icon-no-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+@keyframes rotatePause {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.rotatePause {
+  animation: rotatePause 1.5s infinite ease-in-out;
+}
+
+.noAnimation {
+  animation: none;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+  
+.heartbeat {
+    animation: heartbeat 1.5s infinite ease-in-out;
+}
+  
+@keyframes gentleSwing {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(6deg); }
+    100% { transform: rotate(0deg); }
+}
+  
+.gentleSwing {
+    animation: gentleSwing 2s infinite ease-in-out;
+}
+
+@keyframes softBlink {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+  
+.softBlink {
+    animation: softBlink 2s infinite ease-in-out;
+}
+
+@keyframes tilt {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+  
+.tilt {
+    animation: tilt 2s infinite ease-in-out;
+}

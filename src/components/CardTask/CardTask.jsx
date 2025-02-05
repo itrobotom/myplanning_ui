@@ -3,28 +3,13 @@ import "./CardTask.css"
 import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import StarIcon from '@mui/icons-material/Star';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-//import { StarIcon, RepeatIcon, DeleteOutlineIcon, NotificationsNoneIcon, EditIcon, SaveIcon, Error, Warning, CheckCircle } from '@mui/icons-material';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'; //высокий приоритет
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'; //средний приоритет
 
-
-//через закрашеное солнышко частично и полностью важность
-import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
-import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
-import BrightnessMediumIcon from '@mui/icons-material/BrightnessMedium';
-
-//цифрами 1, 2,3 приоритет
-import Filter1Icon from '@mui/icons-material/Filter1';
-import Filter2Icon from '@mui/icons-material/Filter2';
-import Filter3Icon from '@mui/icons-material/Filter3';
-
-
+import { TaskStatus } from '../TaskStatus/TaskStatus';
 
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
@@ -54,8 +39,18 @@ function CardTask({props}) {
     }
     const handleEditTask = () => {
         setIsEditTask(!isEditTask);
+        //закрыть режим обучения, если открыть режим редактирования!!!!
         console.log(`Задача находится в режиме редактирования ${isEditTask}`)
     }
+    const handleLearnMode = () => {
+        setIsLearnMode(!isLearnMode);
+        //нельзя зайти в режим обучения, если включен режим редактирования
+        //сделать кнопку обучения в меню не активной 
+        //в справке об этом написать!!!!!!
+    }
+
+
+    
     return (
         // <Card className="main-container-task" sx={{ height: heightCard }}>
         <Card>
@@ -98,18 +93,7 @@ function CardTask({props}) {
                                     <IconButton>
                                         <NotificationsNoneIcon></NotificationsNoneIcon>
                                     </IconButton>
-                                    {/* <Popover
-                                        id={id}
-                                        open={open}
-                                        anchorEl={anchorEl}
-                                        onClose={handleClose}
-                                        anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'left',
-                                        }}
-                                        >
-                                        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-                                    </Popover> */}
+                                    
                                 </Box>
 
                                 <IconButton>
@@ -138,18 +122,10 @@ function CardTask({props}) {
                     {/* две иконки рядом друг под другом(повтор и статус) */}
                     {/* <Box sx={{display: "flex", justifyContent: "space-between"}}> */}
                     <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%"}}>
-                        <Box>
-                            {isLearnMode ? (
-                                // разные версии анимации иконки rotatePause, heartbeat, gentleSwing, softBlink, tilt
-                                <IconButton className={isLearnMode ? 'gentleSwing' : 'noAnimation'}>
-                                    <Filter1Icon></Filter1Icon>
-                                </IconButton>
-                            ) : (
-                                <Box className='icon-no-button'>
-                                    <Filter1Icon />
-                                </Box>
-                            )}
-
+                        <Box>                       
+                            {/* ИКОНКА ДЛЯ ВЫБОРА СТАТУСА ЗАДАЧИ КАК ОТДЕЛЬНЫЙ КОМПОНЕНТ */}
+                            {/* одновременно isEditMode и isLearnMode в true не могут быть */}
+                            <TaskStatus isEditTask={isEditTask} isLearnMode={isLearnMode} initStatus={2} />
                             {!isOpenTask && 
                                 <IconButton>
                                     <Box

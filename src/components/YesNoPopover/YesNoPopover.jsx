@@ -1,15 +1,44 @@
 //передаем через пропсы текст вопроса, адрес запроса на сервер
-import { Popover, Typography } from "@mui/material";
+import { Button, Popover, Typography, IconButton } from "@mui/material";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useState } from "react";
 
 function YesNoPopover ({
-    open,
-    anchorEl,
-    onClose,
-    question,
-    actionType,
-    onDecision 
+    onConfirm,
+    question
 }) {
-    const handleDecision = (confirmed) => {
-        onDecision(actionType, confirmed);
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleOpen = (event) => {
+        setAnchorEl(event.currentTarget);
     }
-}
+
+    const handleClose = () =>{
+        setAnchorEl(null);
+    }
+    const handleYes = () => {
+        onConfirm(); //вызываем функцию удаления в родителе через onConfirm
+        handleClose();
+    }
+
+    return (
+        <>
+            <IconButton onClick={handleOpen}>
+                <DeleteOutlineIcon></DeleteOutlineIcon>
+            </IconButton>
+            <Popover
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            >
+                <Typography sx={{ p: 2 }}>{question}</Typography>
+                <Button onClick={handleYes} color="primary">Да</Button>
+                <Button onClick={handleClose} color="secondary">Нет</Button>
+            </Popover>
+        </>
+        
+    );
+};
+
+export {YesNoPopover}

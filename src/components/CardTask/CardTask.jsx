@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 
 import { TaskStatus } from '../TaskStatus/TaskStatus';
+import { YesNoPopover } from '../YesNoPopover/YesNoPopover';
 
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
@@ -26,7 +27,7 @@ function CardTask({props}) {
     const [isOpenTask, setIsOpenTask] = useState(true); 
     const [isEditTask, setIsEditTask] = useState(true);
     const [isLearnMode, setIsLearnMode] = useState(true); //режим обучения (включается возможность кликать по всем иконкам, получая подсказки)
-    const [isRepetTask, setIsRepeatTask] = useState(true); 
+    const [isRepeatTask, setIsRepeatTask] = useState(true); 
     const [repeatDaysOfWeak, setRepeatDaysOfWeak] = useState(false); //при повторе по дням недели значек переносится вниз и указывадются дни недели рядом для повтора 
     const handleTaskStatus = () => { //при клике меняем статус
         setStatusTask(!statusTask);
@@ -47,6 +48,10 @@ function CardTask({props}) {
         //нельзя зайти в режим обучения, если включен режим редактирования
         //сделать кнопку обучения в меню не активной 
         //в справке об этом написать!!!!!!
+    }
+    const handleDeleteTask = () => {
+        //выполним удаление задачи, например deleteTask(idTask) где id Будет взять из пропсов
+        console.log("Удаляем задачу");
     }
 
 
@@ -86,9 +91,10 @@ function CardTask({props}) {
                                 display: repeatDaysOfWeak ? "block" : "flex",
                             }}>
                                 <Box>
-                                    <IconButton>
+                                    {/* <IconButton>
                                         <DeleteOutlineIcon></DeleteOutlineIcon>
-                                    </IconButton>
+                                    </IconButton> */}
+                                    <YesNoPopover question="Удалить задачу" onConfirm={handleDeleteTask}/>
                                     
                                     <IconButton>
                                         <NotificationsNoneIcon></NotificationsNoneIcon>

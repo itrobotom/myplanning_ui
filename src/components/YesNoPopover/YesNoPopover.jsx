@@ -30,7 +30,14 @@ function YesNoPopover ({
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
                 onClose={handleClose}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
             >
                 <Typography sx={{ p: 2 }}>{question}</Typography>
                 <Button onClick={handleYes} color="primary">Да</Button>

@@ -9,7 +9,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 
-import { TaskStatus } from '../TaskStatus/TaskStatus';
+import { PriorityTask } from '../PriorityTask/PriorityTask';
 import { YesNoPopover } from '../YesNoPopover/YesNoPopover';
 
 function CardTask({props}) {
@@ -24,19 +24,38 @@ function CardTask({props}) {
     // const isCheckBoxTaskStatusDefault = false; 
     const [heightCard, setHeightCard] = useState(SHORT_HEIGHT); 
     const [statusTask, setStatusTask] = useState(false);
+    const [priorityTask, setPriorityTask] = useState(1); 
     const [isOpenTask, setIsOpenTask] = useState(true); 
     const [isEditTask, setIsEditTask] = useState(true);
     const [isLearnMode, setIsLearnMode] = useState(true); //режим обучения (включается возможность кликать по всем иконкам, получая подсказки)
     const [isRepeatTask, setIsRepeatTask] = useState(true); 
     const [repeatDaysOfWeak, setRepeatDaysOfWeak] = useState(false); //при повторе по дням недели значек переносится вниз и указывадются дни недели рядом для повтора 
     const handleTaskStatus = () => { //при клике меняем статус
-        setStatusTask(!statusTask);
+        setStatusTask((prevStatus) => !prevStatus); //ИСПРАВИТЬ СМЕНУ СОСТОЯНИЕ С ПРЕДЫДУЩЕМ PREV!!!!!!!!!!!!!!!!!!!!!!!!
         console.log(`Статус таски: ${statusTask}`);
     }
-    const handleOpenTask = () => {
-        setIsOpenTask(!isOpenTask);
-        isOpenTask ? setHeightCard(FULL_HEIGHT) : setHeightCard(SHORT_HEIGHT);
-        console.log(`Задача развернута ${isOpenTask}`); 
+    const handlePriorityTask = (priorityId) => {
+        switch(priorityId){
+            case "priority1":
+                setPriorityTask(1);
+                break;
+            case "priority2":
+                setPriorityTask(2);
+                break;
+            case "priority3":
+                setPriorityTask(3);
+                break;
+        }
+        console.log(priorityTask);
+            
+    }
+    const handleOpenTask = () => { 
+        setIsOpenTask((prevState) => {
+            const newState = !prevState;
+            setHeightCard(newState ? FULL_HEIGHT : SHORT_HEIGHT);
+            console.log(`Задача развернута ${isOpenTask}`);
+            return newState;
+        });
     }
     const handleEditTask = () => {
         setIsEditTask(!isEditTask);
@@ -131,7 +150,12 @@ function CardTask({props}) {
                         <Box>                       
                             {/* ИКОНКА ДЛЯ ВЫБОРА СТАТУСА ЗАДАЧИ КАК ОТДЕЛЬНЫЙ КОМПОНЕНТ */}
                             {/* одновременно isEditMode и isLearnMode в true не могут быть */}
-                            <TaskStatus isEditTask={isEditTask} isLearnMode={isLearnMode} initStatus={2} />
+                            <PriorityTask 
+                                isEditTask={isEditTask} 
+                                isLearnMode={isLearnMode} 
+                                priorityTask={priorityTask} 
+                                handlePriorityTask = {handlePriorityTask}
+                            />
                             {!isOpenTask && 
                                 <IconButton>
                                     <Box

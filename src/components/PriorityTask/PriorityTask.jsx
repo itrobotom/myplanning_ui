@@ -1,4 +1,4 @@
-import "./TaskStatus.css"
+import "./PriorityTask.css"
 import React, { useEffect, useState } from 'react';
 import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon } from "@mui/material";
 import Popover from '@mui/material/Popover';
@@ -19,7 +19,7 @@ import Filter1Icon from '@mui/icons-material/Filter1';
 import Filter2Icon from '@mui/icons-material/Filter2';
 import Filter3Icon from '@mui/icons-material/Filter3';
 
-function TaskStatus({isLearnMode, isEditTask, initStatus}) {
+function PriorityTask({isLearnMode, isEditTask, priorityTask, handlePriorityTask}) {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
@@ -30,6 +30,11 @@ function TaskStatus({isLearnMode, isEditTask, initStatus}) {
             setAnchorEl(event.currentTarget);
         }
     };
+
+    const handleClickPriority = (event) => {
+        console.log(event.currentTarget.getAttribute('id'));
+        handlePriorityTask(event.currentTarget.getAttribute('id'));
+    }
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -73,9 +78,25 @@ function TaskStatus({isLearnMode, isEditTask, initStatus}) {
                         horizontal: 'right',
                     }}
                 >
-                    <Typography sx={{ p: 2 }}>Is learn mode.</Typography>
+                    {/* <Typography sx={{ p: 2 }}>Is learn mode.</Typography> */}
+                    <IconButton 
+                        aria-describedby={id} variant="contained" onClick={handleClickPriority} id="priority1"
+                    >
+                        <Filter1Icon />
+                    </IconButton>
+                    <IconButton 
+                        aria-describedby={id} variant="contained" onClick={handleClickPriority} id="priority2"
+                    >
+                        <Filter2Icon />
+                    </IconButton>
+                    <IconButton 
+                        aria-describedby={id} variant="contained" onClick={handleClickPriority} id="priority3"
+                    >
+                        <Filter3Icon />
+                    </IconButton>
+
                 </Popover>
-                {chooseStatusTask(initStatus)}
+                {chooseStatusTask(priorityTask)}
             </IconButton>                                
             ) : 
             isEditTask ? (
@@ -100,12 +121,12 @@ function TaskStatus({isLearnMode, isEditTask, initStatus}) {
                     <Typography sx={{ p: 2 }}>Is edit mode</Typography>
                 </Popover>
 
-                {chooseStatusTask(initStatus)}
+                {chooseStatusTask(priorityTask)}
             </IconButton>
             ) :   
             (
                 <Box className='icon-no-button'>
-                    {chooseStatusTask(initStatus)}
+                    {chooseStatusTask(priorityTask)}
                 </Box>
             )}
         </Box>
@@ -113,4 +134,4 @@ function TaskStatus({isLearnMode, isEditTask, initStatus}) {
 
 }
 
-export {TaskStatus}
+export {PriorityTask}

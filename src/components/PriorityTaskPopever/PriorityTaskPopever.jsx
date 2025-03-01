@@ -1,4 +1,4 @@
-import "./PriorityTask.css"
+import "./PriorityTaskPopever.css"
 import React, { useEffect, useState } from 'react';
 import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon } from "@mui/material";
 import Popover from '@mui/material/Popover';
@@ -19,7 +19,7 @@ import Filter1Icon from '@mui/icons-material/Filter1';
 import Filter2Icon from '@mui/icons-material/Filter2';
 import Filter3Icon from '@mui/icons-material/Filter3';
 
-function PriorityTask({isLearnMode, isEditTask, priorityTask, handlePriorityTask}) {
+function PriorityTaskPopever({isLearnMode, isEditTask, priorityTask, handlePriorityTask}) {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
@@ -45,7 +45,7 @@ function PriorityTask({isLearnMode, isEditTask, priorityTask, handlePriorityTask
     console.log('состояние поповера' + open)
     const id = open ? 'simple-popover' : undefined;
 
-    const chooseStatusTask = (status) => {
+    const choosePriorityTask = (status) => {
         switch(status) {
             case 1:
                 return <Filter1Icon/>
@@ -62,6 +62,44 @@ function PriorityTask({isLearnMode, isEditTask, priorityTask, handlePriorityTask
             // разные версии анимации иконки rotatePause, heartbeat, gentleSwing, softBlink, tilt
             <IconButton 
                 className={isLearnMode ? 'gentleSwing' : 'noAnimation'}
+                aria-describedby={id} variant="contained" onClick={handleClick}
+            >
+                <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose} 
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    
+                >     
+                    <Box sx={{m: 1}}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Filter1Icon />
+                            <Typography sx={{ p: 1 }}> - высокий приоритет</Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Filter2Icon />
+                            <Typography sx={{ p: 1 }}> - средний приоритет</Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Filter3Icon />
+                            <Typography sx={{ p: 1 }}> - низкий приоритет</Typography>
+                        </Box>
+                    </Box>    
+                </Popover>
+                {choosePriorityTask(priorityTask)}
+            </IconButton>                                
+            ) : 
+            isEditTask ? (
+            <IconButton 
+                className={isLearnMode ? 'rotatePause' : 'noAnimation'}
                 aria-describedby={id} variant="contained" onClick={handleClick}
             >
                 <Popover
@@ -96,37 +134,13 @@ function PriorityTask({isLearnMode, isEditTask, priorityTask, handlePriorityTask
                     </IconButton>
 
                 </Popover>
-                {chooseStatusTask(priorityTask)}
-            </IconButton>                                
-            ) : 
-            isEditTask ? (
-            <IconButton 
-                className={isLearnMode ? 'rotatePause' : 'noAnimation'}
-                aria-describedby={id} variant="contained" onClick={handleClick}
-            >
-                <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose} 
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                >
-                    <Typography sx={{ p: 2 }}>Is edit mode</Typography>
-                </Popover>
 
-                {chooseStatusTask(priorityTask)}
+                {choosePriorityTask(priorityTask)}
             </IconButton>
             ) :   
             (
                 <Box className='icon-no-button'>
-                    {chooseStatusTask(priorityTask)}
+                    {choosePriorityTask(priorityTask)}
                 </Box>
             )}
         </Box>
@@ -134,4 +148,4 @@ function PriorityTask({isLearnMode, isEditTask, priorityTask, handlePriorityTask
 
 }
 
-export {PriorityTask}
+export {PriorityTaskPopever}

@@ -9,7 +9,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 
-import { PriorityTask } from '../PriorityTask/PriorityTask';
+import { PriorityTaskPopever } from '../PriorityTaskPopever/PriorityTaskPopever';
 import { YesNoPopover } from '../YesNoPopover/YesNoPopover';
 
 function CardTask({props}) {
@@ -19,6 +19,9 @@ function CardTask({props}) {
     //а пока сделаем его просто по дефолту false
     const FULL_HEIGHT = 200;
     const SHORT_HEIGHT = 200;
+    const PRIORITY_LOW = 1;
+    const PRIORITY_MEDIUM = 2;
+    const PRIORITY_HIGH = 3;
     //const isLearnMode = true; 
     //const isFullTask = false; //все задачи в ленте свернуты, чтобы развернуть и увидеть все настройки и все содержимое, возомжность редактироват, надо нажать на саму задачу
     // const isCheckBoxTaskStatusDefault = false; 
@@ -31,19 +34,19 @@ function CardTask({props}) {
     const [isRepeatTask, setIsRepeatTask] = useState(true); 
     const [repeatDaysOfWeak, setRepeatDaysOfWeak] = useState(false); //при повторе по дням недели значек переносится вниз и указывадются дни недели рядом для повтора 
     const handleTaskStatus = () => { //при клике меняем статус
-        setStatusTask((prevStatus) => !prevStatus); //ИСПРАВИТЬ СМЕНУ СОСТОЯНИЕ С ПРЕДЫДУЩЕМ PREV!!!!!!!!!!!!!!!!!!!!!!!!
+        setStatusTask((prevStatus) => !prevStatus); 
         console.log(`Статус таски: ${statusTask}`);
     }
     const handlePriorityTask = (priorityId) => {
         switch(priorityId){
             case "priority1":
-                setPriorityTask(1);
+                setPriorityTask(PRIORITY_LOW);
                 break;
             case "priority2":
-                setPriorityTask(2);
+                setPriorityTask(PRIORITY_MEDIUM);
                 break;
             case "priority3":
-                setPriorityTask(3);
+                setPriorityTask(PRIORITY_HIGH);
                 break;
         }
         console.log(priorityTask);
@@ -150,7 +153,7 @@ function CardTask({props}) {
                         <Box>                       
                             {/* ИКОНКА ДЛЯ ВЫБОРА СТАТУСА ЗАДАЧИ КАК ОТДЕЛЬНЫЙ КОМПОНЕНТ */}
                             {/* одновременно isEditMode и isLearnMode в true не могут быть */}
-                            <PriorityTask 
+                            <PriorityTaskPopever 
                                 isEditTask={isEditTask} 
                                 isLearnMode={isLearnMode} 
                                 priorityTask={priorityTask} 

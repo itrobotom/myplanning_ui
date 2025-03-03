@@ -12,9 +12,19 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Button, Popover, Typography, IconButton } from "@mui/material";
 import { useState } from 'react';
 
-function SelectRepeatTaskPopover ({props}) {
-    const [repeatStatus, setRepeatStatus] = useState(false);
+function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettignsObj}) {
+    // const [repeatStatus, setRepeatStatus] = useState(false);
+    const initRepeatSettings = {
+        repeatStatus: false,
+        repeatMode: null, //everyday, everyWeek, everyMonth, everyYear, choiceDays
+        choiceDaysRepeat: null //["sun", "mon", "tu", "we", "th", "fr", "sat"]
+    }
 
+    const repeatSettings = {
+        repeatStatus: true,
+        repeatMode: "everyday", //everyday, everyWeek, everyMonth, everyYear, choiceDays
+        choiceDaysRepeat: ["tu", "fr"] //["sun", "mon", "tu", "we", "th", "fr", "sat"]
+    }
     const toggleRepeat = () => {
         setRepeatStatus((prev) => !prev); 
     }

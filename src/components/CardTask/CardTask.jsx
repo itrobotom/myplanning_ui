@@ -11,6 +11,7 @@ import SaveIcon from '@mui/icons-material/Save';
 
 import { PriorityTaskPopever } from '../PriorityTaskPopever/PriorityTaskPopever';
 import { YesNoPopover } from '../YesNoPopover/YesNoPopover';
+import { SelectRepeatTaskPopover } from '../SelectRepeatTaskPopover/SelectRepeatTaskPopover';
 
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
@@ -19,15 +20,15 @@ function CardTask({props}) {
     //а пока сделаем его просто по дефолту false
     const FULL_HEIGHT = 200;
     const SHORT_HEIGHT = 200;
-    const PRIORITY_LOW = 1;
+    const PRIORITY_HIGH = 1;
     const PRIORITY_MEDIUM = 2;
-    const PRIORITY_HIGH = 3;
+    const PRIORITY_LOW = 3;
     //const isLearnMode = true; 
     //const isFullTask = false; //все задачи в ленте свернуты, чтобы развернуть и увидеть все настройки и все содержимое, возомжность редактироват, надо нажать на саму задачу
     // const isCheckBoxTaskStatusDefault = false; 
     const [heightCard, setHeightCard] = useState(SHORT_HEIGHT); 
     const [statusTask, setStatusTask] = useState(false);
-    const [priorityTask, setPriorityTask] = useState(1); 
+    const [priorityTask, setPriorityTask] = useState(PRIORITY_HIGH); 
     const [isOpenTask, setIsOpenTask] = useState(true); 
     const [isEditTask, setIsEditTask] = useState(true);
     const [isLearnMode, setIsLearnMode] = useState(true); //режим обучения (включается возможность кликать по всем иконкам, получая подсказки)
@@ -134,7 +135,8 @@ function CardTask({props}) {
                                         }}
                                     >
                                         {/* Сам значок Repeat */}
-                                        <RepeatIcon />
+                                        {/* <RepeatIcon /> */}
+                                        <SelectRepeatTaskPopover />
                                         {/* Линия перечеркивания */}
                                         <Box className="crossing-out"/>
                                     </Box>
@@ -170,7 +172,15 @@ function CardTask({props}) {
                                         }}
                                     >
                                         {/* Сам значок Repeat */}
-                                        <RepeatIcon />
+                                        {/* <RepeatIcon /> */}
+                                        <SelectRepeatTaskPopover />
+
+
+
+
+
+
+
 
                                         {/* Линия перечеркивания */}
                                         <Box className="crossing-out"/>

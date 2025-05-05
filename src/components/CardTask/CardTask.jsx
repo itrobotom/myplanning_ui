@@ -12,6 +12,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { PriorityTaskPopever } from '../PriorityTaskPopever/PriorityTaskPopever';
 import { YesNoPopover } from '../YesNoPopover/YesNoPopover';
 import { SelectRepeatTaskPopover } from '../SelectRepeatTaskPopover/SelectRepeatTaskPopover';
+import { TimeTask } from '../TimeTask/TimeTask';
 
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
@@ -104,10 +105,12 @@ function CardTask({props}) {
                         className={`${isOpenTask ? 'middle-task-block.expanded-text' : 'middle-task-block-text'}`}
                         onClick={handleOpenTask}
                     >
+                        {/* вот тут надо знать режим редактирования или нет isEditTask={isEditTask} чтобы отображать окно с текстом и клавиатурой ввода */}
                         <Typography>Установить программное обеспечение на ПК К20-3. Настроить программы, подключить проектор к пк и веб камеру</Typography>
                         
                     </Box>
                     {/* иконки и настройки ниже самой задачи */}
+                    <TimeTask></TimeTask>
                     <Box sx={{display: "flex", mr:"10px"}}>
                         {isOpenTask &&
                             <Box sx={{
@@ -156,8 +159,6 @@ function CardTask({props}) {
                             {/* ИКОНКА ДЛЯ ВЫБОРА СТАТУСА ЗАДАЧИ КАК ОТДЕЛЬНЫЙ КОМПОНЕНТ */}
                             {/* одновременно isEditMode и isLearnMode в true не могут быть */}
                             <PriorityTaskPopever 
-                                isEditTask={isEditTask} 
-                                isLearnMode={isLearnMode} 
                                 priorityTask={priorityTask} 
                                 handlePriorityTask = {handlePriorityTask}
                             />
@@ -174,14 +175,6 @@ function CardTask({props}) {
                                         {/* Сам значок Repeat */}
                                         {/* <RepeatIcon /> */}
                                         <SelectRepeatTaskPopover />
-
-
-
-
-
-
-
-
                                         {/* Линия перечеркивания */}
                                         <Box className="crossing-out"/>
                                     </Box>
@@ -189,19 +182,25 @@ function CardTask({props}) {
                             }
                         </Box>
                         {/* иконка редактирования, которая появляется внизу после разворачивания карточки задачи */}
-                        {isEditTask ? 
-                        // сделать иконку сохранения с анимацией, чтобы было видно, что измнения надо сохранть
-                        //надо иконкой сохранения можно сделать иконку выхода из режима редактирования - крестик
-                            (<IconButton>
-                                <SaveIcon></SaveIcon>
-                            </IconButton>) : (
-                            
-                            <IconButton
-                                onClick={handleEditTask}
-                            >
-                                <EditIcon></EditIcon>
-                            </IconButton>
-                        )}
+  
+                        
+                        <Box>
+                            {isOpenTask && ( //редактировать текст можно при развернутой задачи
+                                isEditTask ? (
+                                // сделать иконку сохранения с анимацией, чтобы было видно, что измнения надо сохранть
+                                //надо иконкой сохранения можно сделать иконку выхода из режима редактирования - крестик
+                                <IconButton onClick={handleEditTask}>
+                                    {/* Можно добавить анимацию через CSS или Framer Motion */}
+                                    <SaveIcon />
+                                </IconButton>
+                                ) : (
+                                <IconButton onClick={handleEditTask}>
+                                    <EditIcon />
+                                </IconButton>
+                                )
+                            )}
+                        </Box>
+                        
 
                     </Box>
 

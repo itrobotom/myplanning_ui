@@ -6,7 +6,6 @@
 // в другой строке несколько вариантов, или все в столбик, посмотреть как будет выглядеть 
 
 import React from 'react';
-import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -38,6 +37,12 @@ const daysOfWeekObj = {
 }
 
 //const daysOfWeek = []; // будем хранить выбранные дни, по дефолту пусто
+
+
+
+//ДОБАВИТЬ КРЕСТИК ЗАКРЫТИЯ ПОПОВЕРА
+
+
 
 //экшены в виде функции
 const setRepeatMode = (payload) => {
@@ -107,8 +112,6 @@ function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettingsObj}) 
 
     const [repeatSettings, dispatch] = useReducer(reducerRepeatTask, repeatSettingsObj || initRepeatSettings); //если с пропсов режим не придет, проинициализируем тем, что внутри компонента
     
-    
-
     const repeatSettingsExample = {
         //repeatStatus: true,
         repeatMode: "everyday", //noRepeat, everyday, everyWeek, everyMonth, everyYear, choiceDays
@@ -118,22 +121,14 @@ function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettingsObj}) 
     //     setRepeatStatus((prev) => !prev); 
     // }
 
-    const handleChangeMode = (event) => {
-        handleSetRepeatMode(event.target.value);
-        // Здесь можно выполнить дополнительные действия при изменении выбора
-        console.log('Выбрано:', event.target.value);
-        console.log('В редьюсере после выбора режима:', repeatSettings);
-    };
-    // const handleChangeDay = (event) => {
-    //     handleToggleDay(event.target.value);
-    //     console.log('Выбран день:', event.target.value);
-    //     console.log('В редьюсере после выбора дня', repeatSettings);
-    // }
-
     const handleSetRepeatMode = (mode) => {
+        console.log('Выбран режим повтора:', mode);
+        console.log('В редьюсере после выбора режима:', repeatSettings);
         dispatch(setRepeatMode(mode));
     }
     const handleToggleDay = (day) => {
+        console.log('Выбраны дни повтора:', day);
+        console.log('В редьюсере после выбора дней:', repeatSettings);
         dispatch(chooseDaysRepeat(day));
     }
     // useEffect(()=> {
@@ -176,11 +171,11 @@ function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettingsObj}) 
                         aria-labelledby="radio-repeat-mode"
                         defaultValue={repeatSettings.repeatMode}
                         name="radio-buttons-group"
-                        onChange={handleChangeMode}
+                        onChange={(event) => handleSetRepeatMode(event.target.value)}
                     >
                         <FormControlLabel
                             control={<Radio />}
-                            label="Не повторять"
+                            label="не повторять"
                             value={repeatMode.NO_REPEAT}
                         />
                         <FormControlLabel
@@ -220,19 +215,19 @@ function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettingsObj}) 
                         <FormGroup>
                             {/* <Typography variant='subtitle1'>Выберете дни:</Typography> */}
                             {Object.entries(daysOfWeekObj).map(([key, value]) => (
-                            <FormControlLabel
-                                key={key}
-                                control={
-                                    <Checkbox
-                                        // проверим, включен ли день недели уже в объекте
-                                        checked={repeatSettings.daysRepeat.includes(key)}
-                                        onChange={() => handleToggleDay(key)}
-                                        value={key}
-                                    />
-                                }
-                                label={value}
-                                labelPlacement='end'
-                            />
+                                <FormControlLabel
+                                    key={key}
+                                    control={
+                                        <Checkbox
+                                            // проверим, включен ли день недели для верной отрисовки
+                                            checked={repeatSettings.daysRepeat.includes(key)}
+                                            onChange={() => handleToggleDay(key)}
+                                            value={key}
+                                        />
+                                    }
+                                    label={value}
+                                    labelPlacement='end'
+                                />
                             ))}  
                         </FormGroup>
                     </FormControl>

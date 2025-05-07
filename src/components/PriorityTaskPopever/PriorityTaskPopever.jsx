@@ -8,18 +8,22 @@ import StarIcon from '@mui/icons-material/Star';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'; //высокий приоритет
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'; //средний приоритет
 
-
 //через закрашеное солнышко частично и полностью важность
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import BrightnessMediumIcon from '@mui/icons-material/BrightnessMedium';
 
-//цифрами 1, 2,3 приоритет
+//цифрами 1,2,3 приоритет
 import Filter1Icon from '@mui/icons-material/Filter1';
 import Filter2Icon from '@mui/icons-material/Filter2';
 import Filter3Icon from '@mui/icons-material/Filter3';
 
-function PriorityTaskPopever({priorityTask, handlePriorityTask}) {
+
+const PRIORITY_HIGH = 1;
+const PRIORITY_MEDIUM = 2;
+const PRIORITY_LOW = 3;
+
+function PriorityTaskPopever({priorityTask, setPriorityTask}) {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
@@ -31,11 +35,6 @@ function PriorityTaskPopever({priorityTask, handlePriorityTask}) {
         }
     };
 
-    const handleClickPriority = (event) => {
-        console.log(event.currentTarget.getAttribute('id'));
-        handlePriorityTask(event.currentTarget.getAttribute('id'));
-    }
-
     const handleClose = () => {
         setAnchorEl(null);
         console.log("Функция закрытия поповера вызвана")
@@ -44,6 +43,32 @@ function PriorityTaskPopever({priorityTask, handlePriorityTask}) {
     const open = Boolean(anchorEl);
     console.log('состояние поповера' + open)
     const id = open ? 'simple-popover' : undefined;
+
+    const handlePriorityTask = (priorityId) => {
+        switch(priorityId){
+            case "priority1":
+                setPriorityTask(PRIORITY_LOW);
+                break;
+            case "priority2":
+                setPriorityTask(PRIORITY_MEDIUM);
+                break;
+            case "priority3":
+                setPriorityTask(PRIORITY_HIGH);
+                break;
+        }
+        console.log(priorityTask);
+            
+    }
+
+    const handleClickPriority = (event) => {
+        // console.log(event.currentTarget.getAttribute('id'));
+        // Получаем цифру из id (например, "1" из "priority1")
+        const priorityNumber = parseInt(event.currentTarget.id.replace("priority", ""));
+        // handlePriorityTask(priorityNumber);
+        // handleClose();
+        
+        handlePriorityTask(event.currentTarget.getAttribute('id'));
+    }
 
     const choosePriorityTask = (status) => {
         switch(status) {

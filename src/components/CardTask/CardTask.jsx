@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./CardTask.css"
-import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon } from "@mui/material";
+import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon, TextField } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import RepeatIcon from '@mui/icons-material/Repeat';
@@ -14,6 +14,8 @@ import { YesNoPopover } from '../YesNoPopover/YesNoPopover';
 import { SelectRepeatTaskPopover } from '../SelectRepeatTaskPopover/SelectRepeatTaskPopover';
 import { TimeTask } from '../TimeTask/TimeTask';
 
+
+//ИЗМЕНЕНИИЯ НЕ СОХРАНЕНЫ, ПОВТОРИТЕ ПОЗЖЕ
 function CardTask({props}) {
     //если развернутая карточка задачи, то она выше
     //const heightCard = 200;
@@ -21,68 +23,59 @@ function CardTask({props}) {
     //а пока сделаем его просто по дефолту false
     const FULL_HEIGHT = 200;
     const SHORT_HEIGHT = 200;
-    const PRIORITY_HIGH = 1;
-    const PRIORITY_MEDIUM = 2;
-    const PRIORITY_LOW = 3;
+    const DEFAULT_PRIORITY_HIGH = 1;
     //const isLearnMode = true; 
     //const isFullTask = false; //все задачи в ленте свернуты, чтобы развернуть и увидеть все настройки и все содержимое, возомжность редактироват, надо нажать на саму задачу
     // const isCheckBoxTaskStatusDefault = false; 
     const [heightCard, setHeightCard] = useState(SHORT_HEIGHT); 
     const [statusTask, setStatusTask] = useState(false);
-    const [priorityTask, setPriorityTask] = useState(PRIORITY_HIGH); 
+    const [priorityTask, setPriorityTask] = useState(DEFAULT_PRIORITY_HIGH); 
     const [isOpenTask, setIsOpenTask] = useState(true); 
-    const [isEditTask, setIsEditTask] = useState(true);
-    const [isLearnMode, setIsLearnMode] = useState(true); //режим обучения (включается возможность кликать по всем иконкам, получая подсказки)
+    const [isEditTask, setIsEditTask] = useState(false);
     const [isRepeatTask, setIsRepeatTask] = useState(true); 
     const [repeatDaysOfWeak, setRepeatDaysOfWeak] = useState(false); //при повторе по дням недели значек переносится вниз и указывадются дни недели рядом для повтора 
+    const [textTask, setTextTask] = useState('Задача..');
+    //получим с сервера данные
+    const [timeStart, setTimeStart] = useState('Fri, 09 May 2025 17:00:00 GMT');
+    const [timeEnd, setTimeEnd] = useState('Fri, 09 May 2025 17:00:00 GMT');
     const handleTaskStatus = () => { //при клике меняем статус
         setStatusTask((prevStatus) => !prevStatus); 
-        console.log(`Статус таски: ${statusTask}`);
+        //console.log(`Статус таски: ${statusTask}`);
     }
-    const handlePriorityTask = (priorityId) => {
-        switch(priorityId){
-            case "priority1":
-                setPriorityTask(PRIORITY_LOW);
-                break;
-            case "priority2":
-                setPriorityTask(PRIORITY_MEDIUM);
-                break;
-            case "priority3":
-                setPriorityTask(PRIORITY_HIGH);
-                break;
-        }
-        console.log(priorityTask);
-            
+    const handleChangeText = (event) =>{
+        setTextTask(event.target.value);
+        //console.log(event.target.value);
     }
+   
     const handleOpenTask = () => { 
-        setIsOpenTask((prevState) => {
-            const newState = !prevState;
-            setHeightCard(newState ? FULL_HEIGHT : SHORT_HEIGHT);
-            console.log(`Задача развернута ${isOpenTask}`);
-            return newState;
-        });
+        if(!isEditTask){
+            setIsOpenTask((prevState) => {
+                const newState = !prevState;
+                setHeightCard(newState ? FULL_HEIGHT : SHORT_HEIGHT);
+                //console.log(`Задача развернута ${isOpenTask}`);
+                return newState;
+            });
+        }  
     }
     const handleEditTask = () => {
         setIsEditTask(!isEditTask);
         //закрыть режим обучения, если открыть режим редактирования!!!!
-        console.log(`Задача находится в режиме редактирования ${isEditTask}`)
+        //console.log(`Задача находится в режиме редактирования ${isEditTask}`)
     }
-    const handleLearnMode = () => {
-        setIsLearnMode(!isLearnMode);
-        //нельзя зайти в режим обучения, если включен режим редактирования
-        //сделать кнопку обучения в меню не активной 
-        //в справке об этом написать!!!!!!
-    }
+    
     const handleDeleteTask = () => {
         //выполним удаление задачи, например deleteTask(idTask) где id Будет взять из пропсов
         console.log("Удаляем задачу");
     }
-
-
     
     return (
         // <Card className="main-container-task" sx={{ height: heightCard }}>
-        <Card>
+        <Card sx={{ 
+            width: '95vw', /* На всю ширину viewport */
+            marginLeft: '-16px', /* Компенсируем padding родителя */
+            marginRight: '-16px',
+            borderRadius: 0 /* Убираем скругления */
+          }}>
             {/* <CardContent>
                 <Typography variant="h5">Заголовок</Typography>
                 <Typography>Контент карточки</Typography>
@@ -99,18 +92,46 @@ function CardTask({props}) {
                         sx={{ mx: 'auto' }}
                     />
                 </Box>
-                <Box className="middle-task-block">
+                <Box className="middle-task-block" sx={{ width: '100%' }}>
                     {/* меняем класс при разворачивании задачи */}
                     <Box 
                         className={`${isOpenTask ? 'middle-task-block.expanded-text' : 'middle-task-block-text'}`}
                         onClick={handleOpenTask}
                     >
                         {/* вот тут надо знать режим редактирования или нет isEditTask={isEditTask} чтобы отображать окно с текстом и клавиатурой ввода */}
-                        <Typography>Установить программное обеспечение на ПК К20-3. Настроить программы, подключить проектор к пк и веб камеру</Typography>
+                        
+                        {isEditTask ? (
+                            <TextField
+                                id="outlined-multiline-static"
+                                label="Текст задачи"
+                                multiline
+                                rows={4}
+                                defaultValue={textTask}
+                                fullWidth
+                                sx={{
+                                    '& .MuiOutlinedInput-root': {
+                                        padding: '8px',
+                                        marginTop: '8px',
+                
+                                    },
+                                    marginTop: '8px',
+                                    width: '100%',
+                                    mx: 0, // Убираем горизонтальные margin
+                                    px: 0  // Убираем горизонтальные padding
+                                }}
+                                onChange={handleChangeText}
+                            />
+                        ):(
+                            <Typography>{textTask}</Typography>
+                            // <Typography>Установить программное обеспечение на ПК К20-3. Настроить программы, подключить проектор к пк и веб камеру</Typography>
+                        )}
                         
                     </Box>
-                    {/* иконки и настройки ниже самой задачи */}
-                    <TimeTask></TimeTask>
+
+                    <TimeTask 
+                        timeStart={timeStart} setTimeStart={setTimeStart}
+                        timeEnd={timeEnd} setTimeEnd={setTimeEnd}
+                    ></TimeTask>
                     <Box sx={{display: "flex", mr:"10px"}}>
                         {isOpenTask &&
                             <Box sx={{
@@ -160,7 +181,7 @@ function CardTask({props}) {
                             {/* одновременно isEditMode и isLearnMode в true не могут быть */}
                             <PriorityTaskPopever 
                                 priorityTask={priorityTask} 
-                                handlePriorityTask = {handlePriorityTask}
+                                setPriorityTask = {setPriorityTask}
                             />
                             {!isOpenTask && 
                                 <IconButton>
@@ -191,7 +212,7 @@ function CardTask({props}) {
                                 //надо иконкой сохранения можно сделать иконку выхода из режима редактирования - крестик
                                 <IconButton onClick={handleEditTask}>
                                     {/* Можно добавить анимацию через CSS или Framer Motion */}
-                                    <SaveIcon />
+                                    <SaveIcon className='rotatePause'/>
                                 </IconButton>
                                 ) : (
                                 <IconButton onClick={handleEditTask}>

@@ -11,6 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { Button, Popover, Typography, IconButton, FormControl, FormLabel, RadioGroup, Radio, Checkbox } from "@mui/material";
 import RepeatIcon from '@mui/icons-material/Repeat';
+import CloseIcon from '@mui/icons-material/Close';
 import { useState, useReducer, useEffect } from 'react';
 
 const SET_REPEAT_MODE = "SET_REPEAT_MODE"
@@ -40,7 +41,7 @@ const daysOfWeekObj = {
 
 
 
-//ДОБАВИТЬ КРЕСТИК ЗАКРЫТИЯ ПОПОВЕРА
+//ДОБАВИТЬ КРЕСТИК ЗАКРЫТИЯ ПОПОВЕРА а в принципе и не надо
 
 
 
@@ -93,7 +94,7 @@ function reducerRepeatTask(repeatSettings, action) {
 }
 
 
-function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettingsObj}) {
+function SelectRepeatTaskPopover ({isRepeatTask, repeatSettingsObj}) {
     // const [repeatStatus, setRepeatStatus] = useState(false);
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -112,11 +113,10 @@ function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettingsObj}) 
 
     const [repeatSettings, dispatch] = useReducer(reducerRepeatTask, repeatSettingsObj || initRepeatSettings); //если с пропсов режим не придет, проинициализируем тем, что внутри компонента
     
-    const repeatSettingsExample = {
-        //repeatStatus: true,
-        repeatMode: "everyday", //noRepeat, everyday, everyWeek, everyMonth, everyYear, choiceDays
-        daysRepeat: ["tu", "fr"] //["sun", "mon", "tu", "we", "th", "fr", "sat"]
-    }
+    // const repeatSettingsExample = {
+    //     repeatMode: "everyday", //noRepeat, everyday, everyWeek, everyMonth, everyYear, choiceDays
+    //     daysRepeat: ["tu", "fr"] //["sun", "mon", "tu", "we", "th", "fr", "sat"]
+    // }
     // const toggleRepeat = () => {
     //     setRepeatStatus((prev) => !prev); 
     // }
@@ -232,6 +232,7 @@ function SelectRepeatTaskPopover ({isLearnMode, isEditTask, repeatSettingsObj}) 
                         </FormGroup>
                     </FormControl>
                 )}
+            {/* <CloseIcon></CloseIcon> */}
             </Popover>
             
         </>

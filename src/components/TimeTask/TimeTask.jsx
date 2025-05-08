@@ -8,8 +8,8 @@ import { Button, Popover, Typography, IconButton, FormControl, FormLabel, RadioG
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom'; //часы финиша (время закончилось)
 import { useState, useReducer, useEffect } from 'react';
 import { TimeTaskEndPopover } from '../TimeTaskEndPopover/TimeTaskEndPopover';
+import { TimeTaskStartPopover } from '../TimeTaskStartPopover/TimeTaskStartPopover';
 
-import OutlinedFlagIcon from '@mui/icons-material/OutlinedFlag';
 import dayjs from 'dayjs';
 
 function TimeTask({timeStart, setTimeStart, timeEnd, setTimeEnd}) {
@@ -26,11 +26,8 @@ function TimeTask({timeStart, setTimeStart, timeEnd, setTimeEnd}) {
             py: 0.5
         }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <OutlinedFlagIcon 
-                    fontSize="medium" 
-                    sx={{ color: 'action.active' }} 
-                />
-                <Typography variant="body2">{timeStart}</Typography>
+                <TimeTaskStartPopover timeStart={timeStart} setTimeStart={setTimeStart}></TimeTaskStartPopover>
+                <Typography variant="body2">{dayjs(timeStart).format('DD.MM.YY')}</Typography>
             </Box>
             
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>

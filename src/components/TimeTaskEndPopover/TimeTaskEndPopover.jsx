@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon } from "@mui/material";
+import React, { useState } from 'react';
+import { IconButton } from "@mui/material";
 import Popover from '@mui/material/Popover';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -58,11 +58,11 @@ function TimeTaskEndPopover({timeEnd, setTimeEnd}) {
                 onClose={handleClose} 
                 anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left',
+                    horizontal: 'right',
                 }}
                 transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'right',
+                    horizontal: 'left',
                 }}
             >
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

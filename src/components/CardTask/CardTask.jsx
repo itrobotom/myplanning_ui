@@ -13,7 +13,7 @@ import { PriorityTaskPopever } from '../PriorityTaskPopever/PriorityTaskPopever'
 import { YesNoPopover } from '../YesNoPopover/YesNoPopover';
 import { SelectRepeatTaskPopover } from '../SelectRepeatTaskPopover/SelectRepeatTaskPopover';
 import { TimeTask } from '../TimeTask/TimeTask';
-
+import { NoticeTaskPopover } from '../NoticeTaskPopover/NoticeTaskPopover';
 
 //ИЗМЕНЕНИИЯ НЕ СОХРАНЕНЫ, ПОВТОРИТЕ ПОЗЖЕ
 function CardTask({props}) {
@@ -24,6 +24,7 @@ function CardTask({props}) {
     const FULL_HEIGHT = 200;
     const SHORT_HEIGHT = 200;
     const DEFAULT_PRIORITY_HIGH = 1;
+    const DEFAULT_NOTICE = "not_notice"; //"before_day"
     //const isLearnMode = true; 
     //const isFullTask = false; //все задачи в ленте свернуты, чтобы развернуть и увидеть все настройки и все содержимое, возомжность редактироват, надо нажать на саму задачу
     // const isCheckBoxTaskStatusDefault = false; 
@@ -38,6 +39,7 @@ function CardTask({props}) {
     //получим с сервера данные
     const [timeStart, setTimeStart] = useState('Fri, 09 May 2025 17:00:00 GMT');
     const [timeEnd, setTimeEnd] = useState('Fri, 09 May 2025 17:00:00 GMT');
+    const [noticeTask, setNoticeTask] = useState(DEFAULT_NOTICE); 
     const handleTaskStatus = () => { //при клике меняем статус
         setStatusTask((prevStatus) => !prevStatus); 
         //console.log(`Статус таски: ${statusTask}`);
@@ -143,9 +145,18 @@ function CardTask({props}) {
                                     </IconButton> */}
                                     <YesNoPopover question="Удалить задачу" onConfirm={handleDeleteTask}/>
                                     
-                                    <IconButton>
+
+
+
+
+
+
+
+
+                                    <NoticeTaskPopover noticeTask={noticeTask} setNoticeTask={setNoticeTask}></NoticeTaskPopover>
+                                    {/* <IconButton>
                                         <NotificationsNoneIcon></NotificationsNoneIcon>
-                                    </IconButton>
+                                    </IconButton> */}
                                     
                                 </Box>
 

@@ -24,14 +24,14 @@ function CardTask({props}) {
     //const heightCard = 200;
     //вытащим данные из стора по isCheckBoxTaskStatus, таким и будет далее стейт
     //а пока сделаем его просто по дефолту false
-    const FULL_HEIGHT = 200;
+    // const FULL_HEIGHT = 200;
     const SHORT_HEIGHT = 200;
     const DEFAULT_PRIORITY_HIGH = 1;
     const DEFAULT_NOTICE = "not_notice"; //"before_day"
     //const isLearnMode = true; 
     //const isFullTask = false; //все задачи в ленте свернуты, чтобы развернуть и увидеть все настройки и все содержимое, возомжность редактироват, надо нажать на саму задачу
     // const isCheckBoxTaskStatusDefault = false; 
-    const [heightCard, setHeightCard] = useState(SHORT_HEIGHT); 
+    // const [heightCard, setHeightCard] = useState(SHORT_HEIGHT); 
     const [statusTask, setStatusTask] = useState(false);
     const [priorityTask, setPriorityTask] = useState(DEFAULT_PRIORITY_HIGH); 
     const [isOpenTask, setIsOpenTask] = useState(true); 
@@ -58,7 +58,7 @@ function CardTask({props}) {
         if(!isEditTask){
             setIsOpenTask((prevState) => {
                 const newState = !prevState;
-                setHeightCard(newState ? FULL_HEIGHT : SHORT_HEIGHT);
+                // setHeightCard(newState ? FULL_HEIGHT : SHORT_HEIGHT);
                 //console.log(`Задача развернута ${isOpenTask}`);
                 return newState;
             });
@@ -77,7 +77,7 @@ function CardTask({props}) {
     
     return (
         // <Card className="main-container-task" sx={{ height: heightCard }}>
-        <Card sx={{ 
+        <div sx={{ 
             width: '95vw', /* На всю ширину viewport */
             marginLeft: '-16px', /* Компенсируем padding родителя */
             marginRight: '-16px',
@@ -110,9 +110,10 @@ function CardTask({props}) {
                         {isEditTask ? (
                             <TextField
                                 id="outlined-multiline-static"
-                                label="Текст задачи"
+                                label="Режим редактирования"
                                 multiline
                                 rows={4}
+                                placeholder='Задача..'
                                 defaultValue={textTask}
                                 fullWidth
                                 sx={{
@@ -143,12 +144,16 @@ function CardTask({props}) {
                         linkDoc={linkDoc} setLinkDoc={setLinkDoc} 
                         openLinkProgram={openLinkProgram} setOpenLinkProgram={setOpenLinkProgram}
                     ></LinkDocTask>
-                    <Box sx={{display: "flex", mr:"10px"}}>
+                    <Box 
+                        sx={{ display: "flex", mr: "10px" }} 
+                        className={isOpenTask ? "panel-task-settings" : ""}
+                    >
                         {isOpenTask &&
                             <Box sx={{
-                                display: repeatDaysOfWeak ? "block" : "flex",
-                            }}>
-                                <Box>
+                                    display: repeatDaysOfWeak ? "block" : "flex",
+                                }}
+                            >
+                                <Box >
                                     {/* <IconButton>
                                         <DeleteOutlineIcon></DeleteOutlineIcon>
                                     </IconButton> */}
@@ -186,7 +191,8 @@ function CardTask({props}) {
                     
                 </Box>
                 
-                <Box className="right-task-block" sx={{border: "1px solid black"}}>
+                <Box className="right-task-block"> 
+                {/* sx={{border: "1px solid black"}} */}
                     {/* две иконки рядом друг под другом(повтор и статус) */}
                     {/* <Box sx={{display: "flex", justifyContent: "space-between"}}> */}
                     <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%"}}>
@@ -198,7 +204,7 @@ function CardTask({props}) {
                                 setPriorityTask = {setPriorityTask}
                             />
                             {!isOpenTask && 
-                                <IconButton>
+                                // <IconButton>
                                     <Box
                                         sx={{
                                             position: 'relative',
@@ -213,7 +219,7 @@ function CardTask({props}) {
                                         {/* Линия перечеркивания */}
                                         <Box className="crossing-out"/>
                                     </Box>
-                                </IconButton>
+                                // </IconButton>
                             }
                         </Box>
                         {/* иконка редактирования, которая появляется внизу после разворачивания карточки задачи */}
@@ -244,7 +250,7 @@ function CardTask({props}) {
             </Box>
 
 
-        </Card>
+        </div>
     );
 }
 

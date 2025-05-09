@@ -45,6 +45,7 @@ function TimeTaskEndPopover({timeEnd, setTimeEnd}) {
             <IconButton 
                 // className={isLearnMode ? 'rotatePause' : 'noAnimation'}
                 aria-describedby={id} variant="contained" onClick={handleOpen}
+                sx={{ pr: 0 }}
             >
                 <InsertInvitationIcon 
                     fontSize="small" 

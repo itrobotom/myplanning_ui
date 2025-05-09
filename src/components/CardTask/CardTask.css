@@ -13,7 +13,7 @@
   /* min-height: 300px; */
   padding: 2px;
 
-  background-color: lightblue;
+  
   display: flex;
   /* align-items: center; */
   /* width: 100%; Адаптивная ширина */
@@ -21,30 +21,49 @@
   /* min-width: 520px; */
   /* width: 100%; */
   gap: 10px; /* Расстояние между блоками */
+
+  background: linear-gradient(to bottom right, #e3f2fd, #d1ecf1);
+  /* просроченная задача */
+  /* background: linear-gradient(to bottom right, #fdecea, #f8d7da); */
+  /* Выполненная задача */
+  /* background: linear-gradient(to bottom right, #e6f4ea, #c8e6c9); */
+  
+  border: 1px solid #b0c4de;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  /* padding: 12px; */
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.task-block:hover {
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 .left-task-block, .middle-task-block, .right-task-block {
   flex-shrink: 0; /* Запретить сжатие */
 }
 
-.left-task-block, .right-task-block {
+.right-task-block {
   flex-basis: 50px; /* фиксированная ширина для блоков */
+  /* border: 1px solid black; */
+  /* border-left: 1px solid #b0c4de; */
+
+}
+.panel-task-settings {
+  border-top: 2px solid #a1abb8;
 }
 
 .left-task-block {
-  border: 1px solid black;
-  /* display: flex; */
-
-  /* justify-content: center; */
+  flex-basis: 50px; /* фиксированная ширина для блоков */
+  /* border-right: 1px solid #b0c4de; */
 }
-
-
 .middle-task-block {
   /* display: flex; */
   /* align-items: center; */
   flex: 1; /* Занимает оставшееся пространство */
   /* word-wrap: break-word; Перенос текста, чтобы не было горизонтальной прокрутки */
-  border: 1px solid black;
+  /* border: 1px solid black; */
   overflow: hidden; /* Обрезаем содержимое, выходящее за границы */
   align-items: center; /* Центрируем элементы по вертикали */
 }
@@ -57,7 +76,7 @@
   text-overflow: ellipsis; /* Добавляем многоточие */
   line-height: 1.8em; /* Высота строки зависит от размера шрифта */
   max-height: calc(1.8em * 2); /* Высота для двух строк */
-  padding: 0 10px; /* Внутренние отступы */
+  /* padding: 0 10px; Внутренние отступы */
   word-wrap: break-word; /* Перенос слов при необходимости */
   cursor: pointer;
 }
@@ -66,8 +85,8 @@
   -webkit-line-clamp: unset; /* Убираем ограничение строк */
   overflow: visible; /* Показываем весь текст */
   max-height: none; /* Убираем высоту */
-}
 
+}
 
 
 @media (max-width: 768px) {
@@ -90,7 +109,8 @@
 
 .crossing-out {
   position: absolute;
-  width: 120%;
+  color: #5e6369;
+  width: 100%;
   height: 2px;
   background-color: currentColor;
   top: 50%;

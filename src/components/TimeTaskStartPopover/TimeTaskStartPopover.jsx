@@ -46,6 +46,7 @@ function TimeTaskStartPopover({timeStart, setTimeStart}) {
             <IconButton 
                 // className={isLearnMode ? 'rotatePause' : 'noAnimation'}
                 aria-describedby={id} variant="contained" onClick={handleOpen}
+                sx={{ pr: 0, pl: 0 }}
             >
                 <OutlinedFlagIcon 
                     fontSize="medium" 

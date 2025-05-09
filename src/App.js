@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 // import { ways } from './data/data.js';
 import { CardTask } from './components/CardTask/CardTask.jsx';
+import { ListTaskPage } from './pages/ListTasksPage/ListTasksPage.jsx';
 
 function App() {
   // const listWays = ways.map(way => 
@@ -29,7 +30,8 @@ function App() {
   }
   return (
     <div className="App">
-      <CardTask />
+      <ListTaskPage />
+
     </div>
   );
 }

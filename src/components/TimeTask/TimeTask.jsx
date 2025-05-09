@@ -21,9 +21,10 @@ function TimeTask({timeStart, setTimeStart, timeEnd, setTimeEnd}) {
             display: "flex", 
             justifyContent: "space-between",
             alignItems: "center",
-            gap: 1,
+            gap: 4,
             px: 1,
-            py: 0.5
+            pl: 0,
+            // py: 0.5
         }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <TimeTaskStartPopover timeStart={timeStart} setTimeStart={setTimeStart}></TimeTaskStartPopover>

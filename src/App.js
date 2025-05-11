@@ -4,6 +4,7 @@ import './App.css';
 import { CardTask } from './components/CardTask/CardTask.jsx';
 import { ListTaskPage } from './pages/ListTasksPage/ListTasksPage.jsx';
 import { HomePage } from './pages/HomePage/HomePage.jsx';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
   // const listWays = ways.map(way => 
@@ -29,10 +30,21 @@ function App() {
       </div>
     );
   }
+
+  const router = createBrowserRouter([
+    {
+			path: "/",
+			element: <HomePage />,
+		},
+    {
+			path: "/tasks",
+			element: <ListTaskPage />,
+		}
+
+  ])
   return (
     <div className="App">
-      <ListTaskPage />
-      {/* <HomePage></HomePage> */}
+      <RouterProvider router={router} />
     </div>
   );
 }

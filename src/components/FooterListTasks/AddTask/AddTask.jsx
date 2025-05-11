@@ -5,13 +5,15 @@ function AddTask({typeTask}) {
 
     // когда создается задача, то сразу должен быть режим редактирования с вводом текста конечно!
     return(
-        <>
+        <Box
+            sx={{
+                marginTop: "10px"
+            }}
+        >
             <IconButton>
-                <AddCircleOutlineIcon
-                    sx={{  }}
-                ></AddCircleOutlineIcon>
+               <AddCircleOutlineIcon/>
             </IconButton>
-        </>
+        </Box>
     );
 }
 

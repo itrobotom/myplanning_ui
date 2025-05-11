@@ -13,7 +13,10 @@ function GroupIconsFooter() {
             sx={{display: "flex", 
                
                 justifyContent: "space-between", 
-                height: "100%"
+                height: "100%",
+                padding: "10px",
+                width: '95%',
+                mx: "auto"
             }}
         >
             <FilterListTask></FilterListTask>

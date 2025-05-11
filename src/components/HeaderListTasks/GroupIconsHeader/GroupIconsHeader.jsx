@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SettignsAccount } from '../SettignsAccount/SettignsAccount';
+import { SettingsAccount } from '../SettignsAccount/SettignsAccount';
 import { SearchTask } from '../SearchTask/SearchTask';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { AppBar, Toolbar, Button, Popover, Typography, IconButton, FormControl, FormLabel, RadioGroup, Radio, Checkbox, FormControlLabel } from "@mui/material";
@@ -21,15 +21,17 @@ function GroupIconsHeader() {
           <Toolbar sx={{ 
             display: 'flex',
             justifyContent: 'space-between', // Распределяет элементы по краям
-            width: '100%', // Занимает всю доступную ширину
+            width: '95%', // Занимает всю доступную ширину
             //px: 2, // Добавляет горизонтальный padding для отступов от краев
-            pl: 0
+            pl: 0,
+            mt: 1,
+            mx: "auto"
           }}>
                 <IconButton>
                     <ArrowBackIosNewIcon></ArrowBackIosNewIcon>
                 </IconButton>
                 <SearchTask></SearchTask>
-                <SettignsAccount></SettignsAccount>
+                <SettingsAccount></SettingsAccount>
           </Toolbar>
         </AppBar>
     );

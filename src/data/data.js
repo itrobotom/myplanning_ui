@@ -29,7 +29,7 @@ export const tasks = [
     "id": "task_1",
     "user_id": "66614df5966ed02f7a77de9c",
     "task_type": "personal",
-    "repeat": "noRepeat",
+    "repeat": "everyday",
     "time_start": "2025-05-10T00:00:00.000Z",
     "time_end": "2025-05-12T00:00:00.000Z",
     "time_end_actual": "2025-05-11T00:00:00.000Z",

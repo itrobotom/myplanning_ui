@@ -1,6 +1,6 @@
 import WorkspacesIcon from '@mui/icons-material/Workspaces'; // Без "Filled"
 import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined'; // Контурная
-import { Button, Popover, Typography, IconButton, FormControl, FormLabel, RadioGroup, Radio, Checkbox, FormControlLabel } from "@mui/material";
+import { Button, Popover, Box, Typography, IconButton, FormControl, FormLabel, RadioGroup, Radio, Checkbox, FormControlLabel } from "@mui/material";
 import React, { useEffect, useState } from 'react';
 
 const typeFilter = {
@@ -35,7 +35,11 @@ function FilterListTask() {
     }
 
     return(
-        <>
+        <Box
+            sx={{
+                marginTop: "10px"
+            }}
+        >
             <IconButton onClick={handleOpen}>
                 <WorkspacesIcon sx={{ fill: 'currentColor' }} />
             </IconButton>
@@ -82,7 +86,7 @@ function FilterListTask() {
                     </RadioGroup>
                 </FormControl>
             </Popover>
-        </>   
+        </Box>   
     );
 }
 

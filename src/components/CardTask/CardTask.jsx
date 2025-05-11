@@ -19,86 +19,133 @@ import { OpenLinkDocTask } from '../OpenLinkDocTask/OpenLinkDocTask';
 
 
 //alert ИЗМЕНЕНИИЯ НЕ СОХРАНЕНЫ, ПОВТОРИТЕ ПОЗЖЕ - если сервер после любого запроса даст отрицательный ответ
-function CardTask({props}) {
+function CardTask({ task, onUpdateTask, onDeleteTask, currentDate }) {
     const DEFAULT_PRIORITY = 1;
-    const DEFAULT_NOTICE = "not_notice"; //"before_day"
-    // const isCheckBoxTaskStatusDefault = false; 
-    // const [heightCard, setHeightCard] = useState(SHORT_HEIGHT); 
-    const [statusTask, setStatusTask] = useState(false);
-    const [priorityTask, setPriorityTask] = useState(DEFAULT_PRIORITY); 
-    const [isOpenTask, setIsOpenTask] = useState(true); 
+    const DEFAULT_NOTICE = "not_notice";
+    
+    // Состояния компонента
+    const [statusTask, setStatusTask] = useState(task.status === "completed");
+    const [priorityTask, setPriorityTask] = useState(task.priority || DEFAULT_PRIORITY); 
+    const [isOpenTask, setIsOpenTask] = useState(false); 
     const [isEditTask, setIsEditTask] = useState(false);
-    const [isRepeatTask, setIsRepeatTask] = useState(true); 
-    const [repeatDaysOfWeak, setRepeatDaysOfWeak] = useState(false); //при повторе по дням недели значек переносится вниз и указывадются дни недели рядом для повтора 
-    const [textTask, setTextTask] = useState('Задача..');
-    //получим с сервера данные
-    const [timeStart, setTimeStart] = useState('Fri, 09 May 2025 17:00:00 GMT');
-    const [timeEnd, setTimeEnd] = useState('Fri, 09 May 2025 17:00:00 GMT');
-    const [noticeTask, setNoticeTask] = useState(DEFAULT_NOTICE); 
-    const [linkDoc, setLinkDoc] = useState("");
+    const [isRepeatTask, setIsRepeatTask] = useState(task.repeat === "noRepeat"); 
+    const [repeatDaysOfWeak, setRepeatDaysOfWeak] = useState(task.days_of_week?.length > 0); 
+    const [textTask, setTextTask] = useState(task.content);
+    const [timeStart, setTimeStart] = useState(task.time_start);
+    const [timeEnd, setTimeEnd] = useState(task.time_end);
+    const [noticeTask, setNoticeTask] = useState(task.notifications?.schedule[0] || DEFAULT_NOTICE); 
+    const [linkDoc, setLinkDoc] = useState(task.linkDoc || "");
     const [openLinkProgram, setOpenLinkProgram] = useState(false);
-    const handleTaskStatus = () => { //при клике меняем статус
-        setStatusTask((prevStatus) => !prevStatus); 
-        //console.log(`Статус таски: ${statusTask}`);
-    }
-    const handleChangeText = (event) =>{
+
+    // Определяем статус задачи для стилей
+    const getTaskStyleBgc = () => {
+        const endDate = new Date(task.time_end);
+        const isOverdue = endDate < currentDate && task.status === 'in_process';
+        const isCompleted = task.status === 'completed';
+        
+        if (isOverdue) {
+            return {
+                background: 'linear-gradient(to bottom right, #fdecea, #f8d7da)',
+                borderLeft: '4px solid #dc3545'
+            };
+        }
+        
+        if (isCompleted) {
+            return {
+                background: 'linear-gradient(to bottom right, #e6f4ea, #c8e6c9)',
+                borderLeft: '4px solid #28a745'
+            };
+        }
+        
+        return {
+            background: 'linear-gradient(to bottom right, #e3f2fd, #d1ecf1)',
+            borderLeft: '4px solid #17a2b8'
+        };
+    };
+    // Обработчики событий
+    const handleTaskStatus = () => {
+        const newStatus = !statusTask;
+        setStatusTask(newStatus);
+        onUpdateTask({
+            ...task,
+            status: newStatus ? "completed" : "in_process",
+            time_end_actual: newStatus ? new Date().toISOString() : null
+        });
+    };
+
+    const handleChangeText = (event) => {
         setTextTask(event.target.value);
-        //console.log(event.target.value);
-    }
+    };
    
     const handleOpenTask = () => { 
         if(!isEditTask){
-            setIsOpenTask((prevState) => {
-                const newState = !prevState;
-                // setHeightCard(newState ? FULL_HEIGHT : SHORT_HEIGHT);
-                //console.log(`Задача развернута ${isOpenTask}`);
-                return newState;
-            });
+            setIsOpenTask(prev => !prev);
         }  
-    }
+    };
+
     const handleEditTask = () => {
+        if(isEditTask) {
+            // Сохраняем изменения при выходе из режима редактирования
+            const updatedTask = {
+                ...task,
+                content: textTask,
+                priority: priorityTask,
+                time_start: timeStart,
+                time_end: timeEnd,
+                notifications: {
+                    ...task.notifications,
+                    schedule: [noticeTask]
+                },
+                linkDoc: linkDoc
+            };
+            onUpdateTask(updatedTask);
+        }
         setIsEditTask(!isEditTask);
-        //закрыть режим обучения, если открыть режим редактирования!!!!
-        //console.log(`Задача находится в режиме редактирования ${isEditTask}`)
-    }
+    };
     
     const handleDeleteTask = () => {
-        //выполним удаление задачи, например deleteTask(idTask) где id Будет взять из пропсов
-        console.log("Удаляем задачу");
-    }
-    
+        onDeleteTask(task.id);
+    };
+
+    // Эффект для обновления состояния при изменении пропсов
+    useEffect(() => {
+        setStatusTask(task.status === "completed");
+        setPriorityTask(task.priority || DEFAULT_PRIORITY);
+        setTextTask(task.content);
+        setTimeStart(task.time_start);
+        setTimeEnd(task.time_end);
+        setNoticeTask(task.notifications?.schedule[0] || DEFAULT_NOTICE);
+        setLinkDoc(task.linkDoc || "");
+    }, [task]);
+
     return (
-        // <Card className="main-container-task" sx={{ height: heightCard }}>
         <div sx={{ 
-            width: '95vw', /* На всю ширину viewport */
-            marginLeft: '-16px', /* Компенсируем padding родителя */
+            width: '95vw',
+            marginLeft: '-16px',
             marginRight: '-16px',
-            borderRadius: 0 /* Убираем скругления */
+            borderRadius: 0
           }}>
-            {/* <CardContent>
-                <Typography variant="h5">Заголовок</Typography>
-                <Typography>Контент карточки</Typography>
-            </CardContent> */}
-            <Box className="task-block">
+            <Box 
+                className="task-block"
+                sx={{
+                    overflow: 'hidden',
+                    ...getTaskStyleBgc(), // Применяем стили в зависимости от статуса
+                }}
+            >
                 <Box className="left-task-block">
                     <FormControlLabel
-                        control={<Checkbox 
-                            defaultNohecked 
-                            // color="success"
-                        />} 
-                        checked={statusTask ? true : false}
+                        control={<Checkbox />} 
+                        checked={statusTask}
                         onChange={handleTaskStatus}
                         sx={{ mx: 'auto' }}
                     />
                 </Box>
+                
                 <Box className="middle-task-block" sx={{ width: '100%' }}>
-                    {/* меняем класс при разворачивании задачи */}
                     <Box 
                         className={`${isOpenTask ? 'middle-task-block.expanded-text' : 'middle-task-block-text'}`}
                         onClick={handleOpenTask}
                     >
-                        {/* вот тут надо знать режим редактирования или нет isEditTask={isEditTask} чтобы отображать окно с текстом и клавиатурой ввода */}
-                        
                         {isEditTask ? (
                             <TextField
                                 id="outlined-multiline-static"
@@ -106,97 +153,67 @@ function CardTask({props}) {
                                 multiline
                                 rows={4}
                                 placeholder='Задача..'
-                                defaultValue={textTask}
+                                value={textTask}
                                 fullWidth
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
                                         padding: '8px',
                                         marginTop: '8px',
-                
                                     },
                                     marginTop: '8px',
                                     width: '100%',
-                                    mx: 0, // Убираем горизонтальные margin
-                                    px: 0  // Убираем горизонтальные padding
+                                    mx: 0,
+                                    px: 0
                                 }}
                                 onChange={handleChangeText}
                             />
                         ):(
                             <Typography>{textTask}</Typography>
-                            // <Typography>Установить программное обеспечение на ПК К20-3. Настроить программы, подключить проектор к пк и веб камеру</Typography>
                         )}
-                        
                     </Box>
 
                     <TimeTask 
-                        timeStart={timeStart} setTimeStart={setTimeStart}
-                        timeEnd={timeEnd} setTimeEnd={setTimeEnd}
-                    ></TimeTask>
-                    <LinkDocTask 
-                        linkDoc={linkDoc} setLinkDoc={setLinkDoc} 
-                        openLinkProgram={openLinkProgram} setOpenLinkProgram={setOpenLinkProgram}
-                    ></LinkDocTask>
-                    <Box 
-                        sx={{ display: "flex", mr: "10px" }} 
-                        className={isOpenTask ? "panel-task-settings" : ""}
-                    >
-                        {isOpenTask &&
-                            <Box sx={{
-                                    display: repeatDaysOfWeak ? "block" : "flex",
-                                }}
-                            >
-                                <Box >
-                                    {/* <IconButton>
-                                        <DeleteOutlineIcon></DeleteOutlineIcon>
-                                    </IconButton> */}
-                                    <YesNoPopover question="Удалить задачу" onConfirm={handleDeleteTask}/>
- 
-                                    <NoticeTaskPopover noticeTask={noticeTask} setNoticeTask={setNoticeTask}></NoticeTaskPopover>
-                                    {/* <IconButton>
-                                        <NotificationsNoneIcon></NotificationsNoneIcon>
-                                    </IconButton> */}
-                                    <IconButton>
-                                        <Box
-                                            sx={{
-                                                position: 'relative',
-                                                display: 'inline-flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                            }}
-                                        >
-                                            {/* Сам значок Repeat */}
-                                            {/* <RepeatIcon /> */}
-                                            <SelectRepeatTaskPopover />
-                                            {/* Линия перечеркивания */}
-                                            <Box className="crossing-out"/>
-                                        </Box>
-                                    </IconButton>
-                                    <OpenLinkDocTask openLinkProgram={openLinkProgram} setOpenLinkProgram={setOpenLinkProgram}></OpenLinkDocTask>    
-                                    
-                                </Box>
-
-                                
-                            </Box>
-                        }
-                    </Box>
+                        timeStart={timeStart} 
+                        setTimeStart={setTimeStart}
+                        timeEnd={timeEnd} 
+                        setTimeEnd={setTimeEnd}
+                        isEditMode={isEditTask}
+                    />
                     
+                    {isOpenTask && (
+                        <LinkDocTask 
+                            linkDoc={linkDoc} 
+                            setLinkDoc={setLinkDoc} 
+                            openLinkProgram={openLinkProgram} 
+                            setOpenLinkProgram={setOpenLinkProgram}
+                            isEditMode={isEditTask}
+                        />
+                    )}
                     
-                </Box>
-                
-                <Box className="right-task-block"> 
-                {/* sx={{border: "1px solid black"}} */}
-                    {/* две иконки рядом друг под другом(повтор и статус) */}
-                    {/* <Box sx={{display: "flex", justifyContent: "space-between"}}> */}
-                    <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%"}}>
-                        <Box>                       
-                            {/* ИКОНКА ДЛЯ ВЫБОРА СТАТУСА ЗАДАЧИ КАК ОТДЕЛЬНЫЙ КОМПОНЕНТ */}
-                            {/* одновременно isEditMode и isLearnMode в true не могут быть */}
-                            <PriorityTaskPopever 
-                                priorityTask={priorityTask} 
-                                setPriorityTask = {setPriorityTask}
-                            />
-                            {!isOpenTask && 
-                                // <IconButton>
+                    {isOpenTask && (
+                        <Box sx={{ display: "flex", mr: "10px" }} className="panel-task-settings">
+                            <Box sx={{ display: repeatDaysOfWeak ? "block" : "flex" }}>
+                                <YesNoPopover 
+                                    question="Удалить задачу" 
+                                    onConfirm={handleDeleteTask}
+                                />
+                                <NoticeTaskPopover 
+                                    noticeTask={noticeTask} 
+                                    setNoticeTask={setNoticeTask}
+                                    isEditMode={isEditTask}
+                                />
+                                {/* <SelectRepeatTaskPopover 
+                                    isRepeat={isRepeatTask}
+                                    setIsRepeat={setIsRepeatTask}
+                                    isEditMode={isEditTask}
+                                /> */}
+                                {!isRepeatTask ? (
+                                    <SelectRepeatTaskPopover 
+                                        isRepeat={isRepeatTask}
+                                        setIsRepeat={setIsRepeatTask}
+                                        isEditMode={isEditTask}
+                                    />
+                                ) : (
                                     <Box
                                         sx={{
                                             position: 'relative',
@@ -207,43 +224,81 @@ function CardTask({props}) {
                                     >
                                         {/* Сам значок Repeat */}
                                         {/* <RepeatIcon /> */}
-                                        <SelectRepeatTaskPopover />
+                                        <SelectRepeatTaskPopover 
+                                            isRepeat={isRepeatTask}
+                                            setIsRepeat={setIsRepeatTask}
+                                            isEditMode={isEditTask}
+                                        />
                                         {/* Линия перечеркивания */}
                                         <Box className="crossing-out"/>
                                     </Box>
-                                // </IconButton>
-                            }
+                                )}
+                                
+                                <OpenLinkDocTask 
+                                    openLinkProgram={openLinkProgram} 
+                                    setOpenLinkProgram={setOpenLinkProgram}
+                                />    
+                            </Box>
                         </Box>
-                        {/* иконка редактирования, которая появляется внизу после разворачивания карточки задачи */}
-  
-                        
-                        <Box>
-                            {isOpenTask && ( //редактировать текст можно при развернутой задачи
-                                isEditTask ? (
-                                // сделать иконку сохранения с анимацией, чтобы было видно, что измнения надо сохранть
-                                //надо иконкой сохранения можно сделать иконку выхода из режима редактирования - крестик
-                                <IconButton onClick={handleEditTask}>
-                                    {/* Можно добавить анимацию через CSS или Framer Motion */}
-                                    <SaveIcon className='rotatePause'/>
-                                </IconButton>
+                    )}
+                </Box>
+                
+                <Box className="right-task-block">
+                    <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+                        <Box>                       
+                            <PriorityTaskPopever 
+                                priorityTask={priorityTask} 
+                                setPriorityTask={setPriorityTask}
+                                isEditMode={isEditTask}
+                            />
+                            {!isOpenTask && (
+                                !isRepeatTask ? (
+                                    <SelectRepeatTaskPopover 
+                                        isRepeat={isRepeatTask}
+                                        setIsRepeat={setIsRepeatTask}
+                                        isEditMode={isEditTask}
+                                    />
                                 ) : (
-                                <IconButton onClick={handleEditTask}>
-                                    <EditIcon />
-                                </IconButton>
+                                    <Box
+                                        sx={{
+                                            position: 'relative',
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        {/* Сам значок Repeat */}
+                                        {/* <RepeatIcon /> */}
+                                        <SelectRepeatTaskPopover 
+                                            isRepeat={isRepeatTask}
+                                            setIsRepeat={setIsRepeatTask}
+                                            isEditMode={isEditTask}
+                                        />
+                                        {/* Линия перечеркивания */}
+                                        <Box className="crossing-out"/>
+                                    </Box>
                                 )
                             )}
                         </Box>
                         
-
+                        <Box>
+                            {isOpenTask && (
+                                isEditTask ? (
+                                    <IconButton onClick={handleEditTask}>
+                                        <SaveIcon className='rotatePause'/>
+                                    </IconButton>
+                                ) : (
+                                    <IconButton onClick={handleEditTask}>
+                                        <EditIcon />
+                                    </IconButton>
+                                )
+                            )}
+                        </Box>
                     </Box>
-
-                    
                 </Box>
             </Box>
-
-
         </div>
     );
 }
 
-export { CardTask }
+export { CardTask };

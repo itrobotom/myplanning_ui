@@ -20,7 +20,7 @@
   max-width: 1000px;
   /* min-width: 520px; */
   /* width: 100%; */
-  gap: 10px; /* Расстояние между блоками */
+  gap: 5px; /* Расстояние между блоками */
 
   background: linear-gradient(to bottom right, #e3f2fd, #d1ecf1);
   /* просроченная задача */
@@ -55,7 +55,7 @@
 }
 
 .left-task-block {
-  flex-basis: 50px; /* фиксированная ширина для блоков */
+  flex-basis: 40px; /* фиксированная ширина для блоков */
   /* border-right: 1px solid #b0c4de; */
 }
 .middle-task-block {

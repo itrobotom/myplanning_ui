@@ -21,7 +21,7 @@ function TimeTask({timeStart, setTimeStart, timeEnd, setTimeEnd}) {
             display: "flex", 
             justifyContent: "space-between",
             alignItems: "center",
-            gap: 4,
+            // gap: 4,
             px: 1,
             pl: 0,
             // py: 0.5

@@ -18,22 +18,14 @@ import { LinkDocTask } from '../LinkDocTask/LinkDocTask';
 import { OpenLinkDocTask } from '../OpenLinkDocTask/OpenLinkDocTask';
 
 
-//ИЗМЕНЕНИИЯ НЕ СОХРАНЕНЫ, ПОВТОРИТЕ ПОЗЖЕ
+//alert ИЗМЕНЕНИИЯ НЕ СОХРАНЕНЫ, ПОВТОРИТЕ ПОЗЖЕ - если сервер после любого запроса даст отрицательный ответ
 function CardTask({props}) {
-    //если развернутая карточка задачи, то она выше
-    //const heightCard = 200;
-    //вытащим данные из стора по isCheckBoxTaskStatus, таким и будет далее стейт
-    //а пока сделаем его просто по дефолту false
-    // const FULL_HEIGHT = 200;
-    const SHORT_HEIGHT = 200;
-    const DEFAULT_PRIORITY_HIGH = 1;
+    const DEFAULT_PRIORITY = 1;
     const DEFAULT_NOTICE = "not_notice"; //"before_day"
-    //const isLearnMode = true; 
-    //const isFullTask = false; //все задачи в ленте свернуты, чтобы развернуть и увидеть все настройки и все содержимое, возомжность редактироват, надо нажать на саму задачу
     // const isCheckBoxTaskStatusDefault = false; 
     // const [heightCard, setHeightCard] = useState(SHORT_HEIGHT); 
     const [statusTask, setStatusTask] = useState(false);
-    const [priorityTask, setPriorityTask] = useState(DEFAULT_PRIORITY_HIGH); 
+    const [priorityTask, setPriorityTask] = useState(DEFAULT_PRIORITY); 
     const [isOpenTask, setIsOpenTask] = useState(true); 
     const [isEditTask, setIsEditTask] = useState(false);
     const [isRepeatTask, setIsRepeatTask] = useState(true); 

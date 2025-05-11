@@ -47,13 +47,13 @@ function PriorityTaskPopever({priorityTask, setPriorityTask}) {
     const handlePriorityTask = (priorityId) => {
         switch(priorityId){
             case "priority1":
-                setPriorityTask(PRIORITY_LOW);
+                setPriorityTask(PRIORITY_HIGH);
                 break;
             case "priority2":
                 setPriorityTask(PRIORITY_MEDIUM);
                 break;
             case "priority3":
-                setPriorityTask(PRIORITY_HIGH);
+                setPriorityTask(PRIORITY_LOW);
                 break;
         }
         console.log(priorityTask);

@@ -13,11 +13,11 @@ const typeFilter = {
 }
 const NOTICE_OPTION = [
     {value: typeFilter.TODAY, label: "сегдня"},
-    {value: typeFilter.WEEK, label: "за сутки"},
-    {value: typeFilter.COMPLETED, label: "за три дня"},
-    {value: typeFilter.EXPIRED, label: "за месяц"},
-    {value: typeFilter.FUTURE, label: "за месяц"},
-    {value: typeFilter.ALL, label: "за месяц"}
+    {value: typeFilter.WEEK, label: "на неделю"},
+    {value: typeFilter.COMPLETED, label: "завершенные"},
+    {value: typeFilter.EXPIRED, label: "просроченные"},
+    {value: typeFilter.FUTURE, label: "будущие"},
+    {value: typeFilter.ALL, label: "все"}
 ]
 function FilterListTask() {
     const [anchorEl, setAnchorEl] = useState(null);

@@ -1,8 +1,9 @@
 import React from 'react';
-import { AppBar, Toolbar } from '@mui/material';
 
 import { SettignsAccount } from '../SettignsAccount/SettignsAccount';
 import { SearchTask } from '../SearchTask/SearchTask';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { AppBar, Toolbar, Button, Popover, Typography, IconButton, FormControl, FormLabel, RadioGroup, Radio, Checkbox, FormControlLabel } from "@mui/material";
 
 function GroupIconsHeader() {
     return (
@@ -24,6 +25,9 @@ function GroupIconsHeader() {
             //px: 2, // Добавляет горизонтальный padding для отступов от краев
             pl: 0
           }}>
+                <IconButton>
+                    <ArrowBackIosNewIcon></ArrowBackIosNewIcon>
+                </IconButton>
                 <SearchTask></SearchTask>
                 <SettignsAccount></SettignsAccount>
           </Toolbar>

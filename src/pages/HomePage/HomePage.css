@@ -1,0 +1,121 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    background: linear-gradient(to bottom right, #f0f4f8, #e0f7fa);
+    overflow-x: hidden;
+  }
+  
+  .main-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Кнопка входа */
+  .login-button {
+    position: absolute;
+    top: 1.2rem;
+    right: 2.5rem;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-button:hover {
+    background-color: #1565c0;
+  }
+  
+  /* Слоган */
+  .slogan-wrapper {
+    margin-top: 4rem;
+    max-width: 90%;
+    text-align: center;
+  }
+  .slogan {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    opacity: 0;
+    animation: fadeInText 2s ease-in forwards;
+  }
+  
+  @keyframes fadeInText {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Карточки задач */
+  .task-preview-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .task-card {
+    padding: 1rem;
+    border-radius: 12px;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    filter: blur(3px);
+    opacity: 0.9;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Цвета карточек */
+  .task-card.actual {
+    background: linear-gradient(to bottom right, #e3f2fd, #d1ecf1);
+  }
+  .task-card.completed {
+    background: linear-gradient(to bottom right, #e6f4ea, #c8e6c9);
+  }
+  .task-card.overdue {
+    background: linear-gradient(to bottom right, #fdecea, #f8d7da);
+  }
+  
+  /* Анимация появления карточек */
+  .fade-in {
+    animation: fadeInSlideUp 1s ease forwards;
+  }
+  .delay-1 { animation-delay: 0.3s; }
+  .delay-2 { animation-delay: 0.6s; }
+  
+  @keyframes fadeInSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Адаптация */
+  @media (max-width: 480px) {
+    .slogan {
+      font-size: 1rem;
+    }
+  }

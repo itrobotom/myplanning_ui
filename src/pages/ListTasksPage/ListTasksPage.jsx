@@ -2,9 +2,10 @@ import { CardTask } from "../../components/CardTask/CardTask";
 import { GroupIconsFooter } from "../../components/FooterListTasks/GroupeIconsFooter/GroupeIconsFooter";
 import { Box } from "@mui/material";
 import { GroupIconsHeader } from "../../components/HeaderListTasks/GroupIconsHeader/GroupIconsHeader";
+import React, { useEffect, useState } from 'react';
 
 function ListTaskPage() {
-
+    const [filterTask, setFilterTask] = useState()
     return(
         <Box
             sx={{
@@ -21,7 +22,7 @@ function ListTaskPage() {
             {/* Основной контент (прижат к header) */}
             <Box sx={{ flex: "1 0 auto" }}>
                 
-                {/* ЗДЕСЬ СДЕЛАТЬ КОНТЕЙНЕР ТАСОК, ИЛИ ПРЯМ ТУТ ПРОМАПИТЬ ВСЕ ТАСКИ ПОКА ЧТО В ЭТОМ КОМПОНЕНТЕ */}
+                {/* ЗДЕСЬ СДЕЛАТЬ КОНТЕЙНЕР ТАСОК, но пока ПРЯМ ТУТ ПРОМАПИТЬ ВСЕ ТАСКИ ПОКА ЧТО В ЭТОМ КОМПОНЕНТЕ */}
                 <CardTask />
             </Box>
 

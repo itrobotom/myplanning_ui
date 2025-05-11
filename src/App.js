@@ -3,6 +3,7 @@ import './App.css';
 // import { ways } from './data/data.js';
 import { CardTask } from './components/CardTask/CardTask.jsx';
 import { ListTaskPage } from './pages/ListTasksPage/ListTasksPage.jsx';
+import { HomePage } from './pages/HomePage/HomePage.jsx';
 
 function App() {
   // const listWays = ways.map(way => 
@@ -31,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <ListTaskPage />
-
+      {/* <HomePage></HomePage> */}
     </div>
   );
 }

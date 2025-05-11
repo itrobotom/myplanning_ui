@@ -1,6 +1,7 @@
 import WorkspacesIcon from '@mui/icons-material/Workspaces'; // Без "Filled"
 import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined'; // Контурная
-import { Button, Popover, Typography, IconButton, FormControl, FormLabel, RadioGroup, Radio, Checkbox } from "@mui/material";
+import { Button, Popover, Typography, IconButton, FormControl, FormLabel, RadioGroup, Radio, Checkbox, FormControlLabel } from "@mui/material";
+import React, { useEffect, useState } from 'react';
 
 const typeFilter = {
     TODAY: "today", 
@@ -27,14 +28,15 @@ function FilterListTask() {
         setAnchorEl(null);
     }
 
-    const handleSetNotice = (mode) => {
+    const [filterTask, setFilterTask] = useState(typeFilter.TODAY)
+    const handleSetFilterTask = (mode) => {
         console.log('Выбран режим уведомления:', mode);
-        setNoticeTask(mode);
+        setFilterTask(mode);
     }
 
     return(
         <>
-            <IconButton>
+            <IconButton onClick={handleOpen}>
                 <WorkspacesIcon sx={{ fill: 'currentColor' }} />
             </IconButton>
             <Popover
@@ -62,12 +64,12 @@ function FilterListTask() {
                 <FormControl
                     style={{padding: "10px"}}
                 >
-                    <FormLabel id="radio-repeat-mode">Уведомления</FormLabel>
+                    <FormLabel id="radio-repeat-mode">Фильтр</FormLabel>
                     <RadioGroup
                         aria-labelledby="radio-repeat-mode"
-                        defaultValue={noticeTask}
+                        defaultValue={filterTask}
                         name="radio-buttons-group"
-                        onChange={(event) => handleSetNotice(event.target.value)}
+                        onChange={(event) => handleSetFilterTask(event.target.value)}
                     >
                         {NOTICE_OPTION.map((option) => (
                             <FormControlLabel

@@ -5,13 +5,12 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon, TextField, Link } from "@mui/material";
 
 
-function GroupIconsFooter() {
+function GroupIconsFooter({onAddTask}) {
     const tasks = ['сегодня', 'неделя', 'завершенные', 'просроченные', 'будущие', 'все'];
     const [selectedTask, setSelectedTask] = useState(tasks[0]); // Дефолтное значение
     return(
         <Box 
-            sx={{display: "flex", 
-               
+            sx={{display: "flex",  
                 justifyContent: "space-between", 
                 height: "100%",
                 padding: "10px",
@@ -25,7 +24,7 @@ function GroupIconsFooter() {
                 value={selectedTask}
                 onChange={setSelectedTask}
             />
-            <AddTask></AddTask>
+            <AddTask onAddTask={onAddTask}></AddTask>
 
         </Box>
     );

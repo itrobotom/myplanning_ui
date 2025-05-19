@@ -1,7 +1,7 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Card, CardMedia,  CardActionArea, Typography, Box, IconButton, CardContent, Icon, TextField, Link } from "@mui/material";
 
-function AddTask({typeTask}) {
+function AddTask({typeTask, onAddTask}) {
 
     // когда создается задача, то сразу должен быть режим редактирования с вводом текста конечно!
     return(
@@ -10,7 +10,7 @@ function AddTask({typeTask}) {
                 marginTop: "10px"
             }}
         >
-            <IconButton>
+            <IconButton onClick={() => { onAddTask("Новая задача"); }}>
                <AddCircleOutlineIcon/>
             </IconButton>
         </Box>

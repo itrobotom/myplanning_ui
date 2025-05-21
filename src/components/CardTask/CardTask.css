@@ -40,6 +40,23 @@
   box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
+/* классы для указания цвета статуса задачи */
+.task-block-bcg-overdue {
+  background: linear-gradient(to bottom right, #fdecea, #f8d7da);
+  border-left: 4px solid #dc3545;
+}
+
+.task-block-bcg-completed {
+  background: linear-gradient(to bottom right, #e6f4ea, #c8e6c9);
+  border-left: 4px solid #28a745;
+}
+
+.task-block-bcg-default {
+  background: linear-gradient(to bottom right, #e3f2fd, #d1ecf1);
+  border-left: 4px solid #17a2b8;
+}
+
+
 .left-task-block, .middle-task-block, .right-task-block {
   flex-shrink: 0; /* Запретить сжатие */
 }

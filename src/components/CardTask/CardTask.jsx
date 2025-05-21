@@ -37,34 +37,34 @@ function CardTask({ task, onUpdateTask, onDeleteTask, currentDate }) {
     const [linkDoc, setLinkDoc] = useState(task.linkDoc || "");
     const [openLinkProgram, setOpenLinkProgram] = useState(false);
 
-    // Определяем статус задачи для стилей
-    const getTaskStyleBgc = () => {
+    
+
+    const getBackgroundClass = () => {
+        // Определяем статус задачи для стилей
         const endDate = new Date(task.time_end);
-        const isOverdue = endDate < currentDate && task.status === 'in_process';
-        const isCompleted = task.status === 'completed';
-        
-        if (isOverdue) {
-            return {
-                background: 'linear-gradient(to bottom right, #fdecea, #f8d7da)',
-                borderLeft: '4px solid #dc3545'
-            };
-        }
-        
-        if (isCompleted) {
-            return {
-                background: 'linear-gradient(to bottom right, #e6f4ea, #c8e6c9)',
-                borderLeft: '4px solid #28a745'
-            };
-        }
-        
-        return {
-            background: 'linear-gradient(to bottom right, #e3f2fd, #d1ecf1)',
-            borderLeft: '4px solid #17a2b8'
-        };
-    };
-    // Обработчики событий
+
+        //ВАЖНО!!!
+        // getBackgroundClass() использует task.status, а task.status не меняется мгновенно при клике, он остается прежним, пока родитель не передаст обновлённый task через пропсы.
+        // В чём суть проблемы:
+        // Вы обновляете task.status через onUpdateTask(...) в handleTaskStatus, но getBackgroundClass() вызывается до того, как обновлённый task снова попадает в компонент.
+        // const classBcgColor = getBackgroundClass();
+        // console.log("Класс фона задачи", classBcgColor);
+        // всегда использует старое значение task.status, пока родительский компонент не передаст новое.
+        //поэтому это не работало
+        //const isOverdue = endDate < currentDate && task.status === 'in_process';
+        //const isCompleted = task.status === 'completed';
+
+        const isOverdue = endDate < currentDate && !statusTask;
+        const isCompleted = statusTask;
+
+        if (isOverdue) return 'task-block-bcg-overdue';
+        if (isCompleted) return 'task-block-bcg-completed';
+        return 'task-block-bcg-default';
+    }
     const handleTaskStatus = () => {
         const newStatus = !statusTask;
+        // setIsOverdue((prev)=>!prev); 
+        // console.log("Задача завершена", isOverdue)
         setStatusTask(newStatus);
         onUpdateTask({
             ...task,
@@ -72,6 +72,9 @@ function CardTask({ task, onUpdateTask, onDeleteTask, currentDate }) {
             time_end_actual: newStatus ? new Date().toISOString() : null
         });
     };
+
+    const classBcgColor = getBackgroundClass();
+    console.log("Класс фона задачи", classBcgColor);
 
     const handleChangeText = (event) => {
         setTextTask(event.target.value);
@@ -126,10 +129,12 @@ function CardTask({ task, onUpdateTask, onDeleteTask, currentDate }) {
             borderRadius: 0
           }}>
             <Box 
-                className="task-block"
+                // className={`task-block ${isOverdue ? 'task-block-overdue' : ''} ${isCompleted ? 'task-block-no-overdue' : ''}`}
+                
+                className={`task-block ${classBcgColor}`}
                 sx={{
                     overflow: 'hidden',
-                    ...getTaskStyleBgc(), // Применяем стили в зависимости от статуса
+                    // ...getTaskStyleBgc(), // Применяем стили в зависимости от статуса
                 }}
             >
                 <Box className="left-task-block">
